@@ -21,6 +21,7 @@ RDEPEND="!=app-text/tetex-2*
 	dev-perl/libintl-perl
 	dev-perl/Unicode-EastAsianWidth
 	dev-perl/Text-Unidecode
+	sys-apps/help2man
 	nls? ( virtual/libintl )"
 DEPEND="${RDEPEND}
 	app-arch/xz-utils

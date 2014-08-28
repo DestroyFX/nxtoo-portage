@@ -17,6 +17,7 @@ IUSE="nls static"
 
 RDEPEND="!=app-text/tetex-2*
 	>=sys-libs/ncurses-5.2-r2
+	sys-apps/help2man
 	nls? ( virtual/libintl )"
 DEPEND="${RDEPEND}
 	app-arch/xz-utils
