@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/haskell-cabal.eclass,v 1.46 2014/06/27 07:26:18 slyfox Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/haskell-cabal.eclass,v 1.43 2014/02/11 19:00:06 slyfox Exp $
 
 # @ECLASS: haskell-cabal.eclass
 # @MAINTAINER:
@@ -62,11 +62,6 @@ inherit eutils ghc-package multilib multiprocessing
 : ${CABAL_DEBUG_LOOSENING:=}
 
 HASKELL_CABAL_EXPF="pkg_setup src_compile src_test src_install"
-
-# 'dev-haskell/cabal' passes those options with ./configure-based
-# configuration, but most packages don't need/don't accept it:
-# #515362, #515362
-QA_CONFIGURE_OPTIONS+=" --with-compiler --with-hc --with-hc-pkg --with-gcc"
 
 case "${EAPI:-0}" in
 	2|3|4|5) HASKELL_CABAL_EXPF+=" src_configure" ;;
@@ -185,11 +180,10 @@ cabal-bootstrap() {
 
 	make_setup() {
 		set -- -package "${cabalpackage}" --make "${setupmodule}" \
-			${HCFLAGS} \
 			${GHC_BOOTSTRAP_FLAGS} \
 			"$@" \
 			-o setup
-		echo $(ghc-getghc) "$@"
+		echo $(ghc-getghc) ${HCFLAGS} "$@"
 		$(ghc-getghc) "$@"
 	}
 	if $(ghc-supports-shared-libraries); then
@@ -215,14 +209,18 @@ cabal-bootstrap() {
 }
 
 cabal-mksetup() {
-	local setupdir=${1:-${S}}
-	local setup_src=${setupdir}/Setup.hs
+	local setupdir
 
-	rm -vf "${setupdir}"/Setup.{lhs,hs}
-	elog "Creating 'Setup.hs' for 'Simple' build type."
+	if [[ -n $1 ]]; then
+		setupdir=$1
+	else
+		setupdir=${S}
+	fi
+
+	rm -f "${setupdir}"/Setup.{lhs,hs}
 
 	echo 'import Distribution.Simple; main = defaultMainWithHooks defaultUserHooks' \
-		> "${setup_src}" || die "failed to create default Setup.hs"
+		> $setupdir/Setup.hs || die "failed to create default Setup.hs"
 }
 
 cabal-hscolour() {
@@ -254,12 +252,10 @@ cabal-die-if-nonempty() {
 }
 
 cabal-show-brokens() {
-	elog "ghc-pkg check: 'checking for other broken packages:'"
 	# pretty-printer
 	$(ghc-getghcpkg) check 2>&1 \
 		| egrep -v '^Warning: haddock-(html|interfaces): ' \
-		| egrep -v '^Warning: include-dirs: ' \
-		| head -n 20
+		| egrep -v '^Warning: include-dirs: '
 
 	cabal-die-if-nonempty 'broken' \
 		$($(ghc-getghcpkg) check --simple-output)
@@ -315,10 +311,8 @@ cabal-configure() {
 	if ghc-supports-parallel-make; then
 		local max_jobs=$(makeopts_jobs)
 
-		# limit to very small value, as parallelism
-		# helps slightly, but makes things severely worse
-		# when amount of threads is Very Large.
-		[[ ${max_jobs} -gt 4 ]] && max_jobs=4
+		# limit to sort-of-sane value (same as Cabal)
+		[[ ${max_jobs} -gt 64 ]] && max_jobs=64
 
 		cabalconf+=(--ghc-option=-j"$max_jobs")
 	fi
@@ -387,6 +381,7 @@ cabal-configure() {
 }
 
 cabal-build() {
+	unset LANG LC_ALL LC_MESSAGES
 	set --  build ${CABAL_EXTRA_BUILD_FLAGS} "$@"
 	echo ./setup "$@"
 	./setup "$@" \
@@ -624,8 +619,7 @@ cabal_flag() {
 #}
 #
 cabal_chdeps() {
-	local cabal_fn=${MY_PN:-${PN}}.cabal
-	local cf=${CABAL_FILE:-${S}/${cabal_fn}}
+	local cf=${CABAL_FILE:-${S}/${PN}.cabal}
 	local from_ss # ss - substring
 	local to_ss
 	local orig_c # c - contents

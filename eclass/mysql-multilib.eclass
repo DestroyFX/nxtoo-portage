@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/mysql-multilib.eclass,v 1.5 2014/08/17 22:50:23 grknight Exp $
+# $Header: $
 
 # @ECLASS: mysql-multilib.eclass
 # @MAINTAINER:
@@ -8,7 +8,6 @@
 #	- MySQL Team <mysql-bugs@gentoo.org>
 #	- Robin H. Johnson <robbat2@gentoo.org>
 #	- Jorge Manuel B. S. Vicetto <jmbsvicetto@gentoo.org>
-#	- Brian Evans <grknight@gentoo.org>
 # @BLURB: This eclass provides most of the functions for mysql ebuilds
 # @DESCRIPTION:
 # The mysql-multilib.eclass is the base eclass to build the mysql and
@@ -25,10 +24,10 @@ MYSQL_EXTRAS=""
 # @DESCRIPTION:
 # The version of the MYSQL_EXTRAS repo to use to build mysql
 # Use "none" to disable it's use
-[[ ${MY_EXTRAS_VER} == "live" ]] && MYSQL_EXTRAS="git-r3"
+[[ ${MY_EXTRAS_VER} == "live" ]] && MYSQL_EXTRAS="git-2"
 
 inherit eutils flag-o-matic ${MYSQL_EXTRAS} mysql-cmake mysql_fx versionator \
-	toolchain-funcs user cmake-utils multilib-minimal
+	toolchain-funcs user cmake-utils multilib-build
 
 #
 # Supported EAPI versions and export functions
@@ -51,9 +50,9 @@ S="${WORKDIR}/mysql"
 
 [[ ${MY_EXTRAS_VER} == "latest" ]] && MY_EXTRAS_VER="20090228-0714Z"
 if [[ ${MY_EXTRAS_VER} == "live" ]]; then
+	EGIT_PROJECT=mysql-extras
 	EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/mysql-extras.git"
-	EGIT_CHECKOUT_DIR=${WORKDIR}/mysql-extras
-	EGIT_CLONE_TYPE=shallow
+	RESTRICT="userpriv"
 fi
 
 # @ECLASS-VARIABLE: MYSQL_PV_MAJOR
@@ -67,13 +66,6 @@ MYSQL_PV_MAJOR="$(get_version_component_range 1-2 ${PV})"
 if [[ "${PN}" == "mysql-cluster" ]]; then
 	case $PV in
 		7.2*|7.3*) MYSQL_PV_MAJOR=5.5 ;;
-	esac
-fi
-
-# MariaDB has left the numbering schema but keeping compatibility
-if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]]; then
-	case ${PV} in
-		10.0*|10.1*) MYSQL_PV_MAJOR="5.6" ;;
 	esac
 fi
 
@@ -119,7 +111,6 @@ if [[ -z ${SERVER_URI} ]]; then
 		MARIA_FULL_P="${PN}-${MARIA_FULL_PV}"
 		SERVER_URI="
 		http://ftp.osuosl.org/pub/mariadb/${MARIA_FULL_P}/kvm-tarbake-jaunty-x86/${MARIA_FULL_P}.tar.gz
-		http://ftp.osuosl.org/pub/mariadb/${MARIA_FULL_P}/source/${MARIA_FULL_P}.tar.gz
 		http://mirror.jmu.edu/pub/mariadb/${MARIA_FULL_P}/kvm-tarbake-jaunty-x86/${MARIA_FULL_P}.tar.gz
 		http://mirrors.coreix.net/mariadb/${MARIA_FULL_P}/kvm-tarbake-jaunty-x86/${MARIA_FULL_P}.tar.gz
 		http://mirrors.syringanetworks.net/mariadb/${MARIA_FULL_P}/kvm-tarbake-jaunty-x86/${MARIA_FULL_P}.tar.gz
@@ -162,11 +153,10 @@ if [[ ${MY_EXTRAS_VER} != "live" && ${MY_EXTRAS_VER} != "none" ]]; then
 	SRC_URI="${SRC_URI}
 		mirror://gentoo/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
 		http://dev.gentoo.org/~robbat2/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
-		http://dev.gentoo.org/~jmbsvicetto/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
-		http://dev.gentoo.org/~grknight/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2"
+		http://dev.gentoo.org/~jmbsvicetto/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2"
 fi
 
-DESCRIPTION="A fast, multi-threaded, multi-user SQL database server"
+DESCRIPTION="A fast, multi-threaded, multi-user SQL database server."
 HOMEPAGE="http://www.mysql.com/"
 if [[ ${PN} == "mariadb" ]]; then
 	HOMEPAGE="http://mariadb.org/"
@@ -178,24 +168,13 @@ if [[ ${PN} == "mariadb-galera" ]]; then
 fi
 if [[ ${PN} == "percona-server" ]]; then
 	HOMEPAGE="http://www.percona.com/software/percona-server"
-	DESCRIPTION="An enhanced, drop-in replacement for MySQL from the Percona team"
+	DESCRIPTION="An enhanced, drop-in replacement fro MySQL from the Percona team"
 fi
 LICENSE="GPL-2"
 SLOT="0"
 
-IUSE="+community cluster debug embedded extraengine jemalloc latin1 max-idx-128 minimal
+IUSE="+community cluster debug embedded extraengine jemalloc latin1 max-idx-128 minimal 
 	+perl profiling selinux ssl systemtap static static-libs tcmalloc test"
-
-# This probably could be simplified, but the syntax would have to be just right
-if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
-	IUSE="bindist ${IUSE}"
-elif [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] && \
-	mysql_check_version_range "5.5.37 to 5.6.11.99" ; then
-	IUSE="bindist ${IUSE}"
-elif [[ ${PN} == "mysql-cluster" ]] && \
-	mysql_check_version_range "7.2 to 7.2.99.99"  ; then
-	IUSE="bindist ${IUSE}"
-fi
 
 if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]]; then
 	IUSE="${IUSE} oqgraph pam sphinx tokudb"
@@ -221,11 +200,15 @@ REQUIRED_USE="
 # These are used for both runtime and compiletime
 # MULTILIB_USEDEP only set for libraries used by the client library
 DEPEND="
-	ssl? ( >=dev-libs/openssl-1.0.0:0=[${MULTILIB_USEDEP},static-libs?] )
-	kernel_linux? (
+	ssl? ( >=dev-libs/openssl-1.0.0:0=[static-libs?]
+	)
+	kernel_linux? ( 
 		sys-process/procps:0=
 		dev-libs/libaio:0=
 	)
+	amd64? ( abi_x86_32? (
+		app-emulation/emul-linux-x86-baselibs[abi_x86_32]
+	) )
 	>=sys-apps/sed-4
 	>=sys-apps/texinfo-4.7-r1
 	>=sys-libs/zlib-1.2.3:0=[${MULTILIB_USEDEP},static-libs?]
@@ -236,20 +219,17 @@ DEPEND="
 "
 
 # dev-db/mysql-5.6.12+ only works with dev-libs/libedit
-# This probably could be simplified
-if [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] && \
-	mysql_version_is_at_least "5.6.12" ; then
-	DEPEND="${DEPEND} dev-libs/libedit"
-elif [[ ${PN} == "mysql-cluster" ]] && mysql_version_is_at_least "7.3"; then
-	DEPEND="${DEPEND} dev-libs/libedit"
+if [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] && mysql_version_is_at_least "5.6.12" ; then
+	DEPEND="${DEPEND} dev-libs/libedit:0=[${MULTILIB_USEDEP}]"
 else
-	DEPEND="${DEPEND} !bindist? ( >=sys-libs/readline-4.1:0=[${MULTILIB_USEDEP}] )"
+	DEPEND="${DEPEND} >=sys-libs/readline-4.1:0=[${MULTILIB_USEDEP}]"
 fi
 
 if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 	# Bug 441700 MariaDB >=5.3 include custom mytop
-	DEPEND="${DEPEND}
+	DEPEND="${DEPEND} 
 		oqgraph? ( >=dev-libs/boost-1.40.0:0= )
+		sphinx? ( app-misc/sphinx:0= )
 		!minimal? ( pam? ( virtual/pam:0= ) )
 		perl? ( !dev-db/mytop )"
 	if mysql_version_is_at_least "10.0.5" ; then
@@ -260,6 +240,7 @@ if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 	fi
 	mysql_version_is_at_least "10.0.7" && DEPEND="${DEPEND} oqgraph? ( dev-libs/judy:0= )"
 	if mysql_version_is_at_least "10.0.9" ; then
+		use embedded && DEPEND="${DEPEND} >=dev-libs/libpcre-8.35:3=[static-libs]" || \
 		DEPEND="${DEPEND} >=dev-libs/libpcre-8.35:3="
 	fi
 fi
@@ -278,11 +259,9 @@ if [[ ${PN} == "mysql-cluster" ]] ; then
 fi
 
 # prefix: first need to implement something for #196294
-# TODO: check emul-linux-x86-db dep when it is multilib enabled
 RDEPEND="${DEPEND}
 	!minimal? ( !prefix? ( dev-db/mysql-init-scripts ) )
 	selinux? ( sec-policy/selinux-mysql )
-	abi_x86_32? ( !app-emulation/emul-linux-x86-db[-abi_x86_32(-)] )
 "
 
 if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
@@ -298,7 +277,7 @@ if [[ ${PN} == "mariadb-galera" ]] ; then
 	# The wsrep API version must match between the ebuild and sys-cluster/galera.
 	# This will be indicated by WSREP_REVISION in the ebuild and the first number
 	# in the version of sys-cluster/galera
-	RDEPEND="${RDEPEND}
+	RDEPEND="${RDEPEND} 
 		=sys-cluster/galera-${WSREP_REVISION}*
 	"
 fi
@@ -321,7 +300,7 @@ PDEPEND="perl? ( >=dev-perl/DBD-mysql-2.9004 )
 	 ~virtual/mysql-${MYSQL_PV_MAJOR}"
 
 # my_config.h includes ABI specific data
-MULTILIB_WRAPPED_HEADERS=( /usr/include/mysql/my_config.h /usr/include/mysql/private/embedded_priv.h )
+MULTILIB_WRAPPED_HEADERS=( /usr/include/mysql/my_config.h )
 
 #
 # HELPER FUNCTIONS:
@@ -368,7 +347,7 @@ mysql-multilib_pkg_setup() {
 		mysql_version_is_at_least "7.2.9" && java-pkg-opt-2_pkg_setup
 	fi
 
-	if use_if_iuse tokudb && [[ $(gcc-major-version) -lt 4 || $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 7 ]] ; then
+	if use_if_iuse tokudb && [[ $(gcc-version) < 4.7 ]] ; then
 		eerror "${PN} with tokudb needs to be built with gcc-4.7 or later."
 		eerror "Please use gcc-config to switch to gcc-4.7 or later version."
 		die
@@ -386,7 +365,7 @@ mysql-multilib_src_unpack() {
 
 	unpack ${A}
 	# Grab the patches
-	[[ "${MY_EXTRAS_VER}" == "live" ]] && S="${WORKDIR}/mysql-extras" git-r3_src_unpack
+	[[ "${MY_EXTRAS_VER}" == "live" ]] && S="${WORKDIR}/mysql-extras" git-2_src_unpack
 
 	mv -f "${WORKDIR}/${MY_SOURCEDIR}" "${S}"
 }
@@ -406,128 +385,157 @@ mysql-multilib_src_prepare() {
 # @DESCRIPTION:
 # Configure mysql to build the code for Gentoo respecting the use flags.
 mysql-multilib_src_configure() {
-	multilib-minimal_src_configure
+	debug-print-function ${FUNCNAME} "$@"
+
+	_mysql-multilib_src_configure() {
+
+		debug-print-function ${FUNCNAME} "$@"
+
+		CMAKE_BUILD_TYPE="RelWithDebInfo"
+
+		# debug hack wrt #497532
+		mycmakeargs=(
+			-DCMAKE_C_FLAGS_RELWITHDEBINFO="$(usex debug "" "-DNDEBUG")"
+			-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="$(usex debug "" "-DNDEBUG")"
+			-DCMAKE_INSTALL_PREFIX=${EPREFIX}/usr
+			-DMYSQL_DATADIR=${EPREFIX}/var/lib/mysql
+			-DSYSCONFDIR=${EPREFIX}/etc/mysql
+			-DINSTALL_BINDIR=bin
+			-DINSTALL_DOCDIR=share/doc/${P}
+			-DINSTALL_DOCREADMEDIR=share/doc/${P}
+			-DINSTALL_INCLUDEDIR=include/mysql
+			-DINSTALL_INFODIR=share/info
+			-DINSTALL_LIBDIR=$(get_libdir)
+			-DINSTALL_ELIBDIR=$(get_libdir)/mysql
+			-DINSTALL_MANDIR=share/man
+			-DINSTALL_MYSQLDATADIR=${EPREFIX}/var/lib/mysql
+			-DINSTALL_MYSQLSHAREDIR=share/mysql
+			-DINSTALL_MYSQLTESTDIR=share/mysql/mysql-test
+			-DINSTALL_PLUGINDIR=$(get_libdir)/mysql/plugin
+			-DINSTALL_SBINDIR=sbin
+			-DINSTALL_SCRIPTDIR=share/mysql/scripts
+			-DINSTALL_SQLBENCHDIR=share/mysql
+			-DINSTALL_SUPPORTFILESDIR=${EPREFIX}/usr/share/mysql
+			-DWITH_COMMENT="Gentoo Linux ${PF}"
+			$(cmake-utils_use_with test UNIT_TESTS)
+			-DWITH_READLINE=0
+			-DWITH_LIBEDIT=0
+			-DWITH_ZLIB=system
+			-DWITHOUT_LIBWRAP=1
+			-DENABLED_LOCAL_INFILE=1
+			-DMYSQL_UNIX_ADDR=${EPREFIX}/var/run/mysqld/mysqld.sock
+		)
+
+		if [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] && mysql_version_is_at_least "5.6.12" ; then
+			mycmakeargs+=( -DWITH_EDITLINE=system )
+		fi
+
+		if use ssl; then
+			mycmakeargs+=( -DWITH_SSL=system )
+		else
+			mycmakeargs+=( -DWITH_SSL=bundled )
+		fi
+
+		# Bug 412851
+		# MariaDB requires this flag to compile with GPLv3 readline linked
+		# Adds a warning about redistribution to configure
+		if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
+			mycmakeargs+=( -DNOT_FOR_DISTRIBUTION=1 )
+
+                	if use jemalloc ; then
+                        	mycmakeargs+=( -DWITH_JEMALLOC="system" )
+	                else
+        	                mycmakeargs+=( -DWITH_JEMALLOC=no )
+                	fi
+			# TODO: uncomment this when libpcre 8.35 is released to remove bundled library
+#			mysql_version_is_at_least "10.0.9" mycmakeargs+=( -DWITH_PCRE=system )
+	        fi
+
+		configure_cmake_locale
+
+		if multilib_build_binaries ; then
+			if use minimal ; then
+				configure_cmake_minimal
+			else
+				configure_cmake_standard
+			fi
+		else
+			configure_cmake_minimal
+		fi
+
+		# Bug #114895, bug #110149
+		filter-flags "-O" "-O[01]"
+
+		CXXFLAGS="${CXXFLAGS} -fno-strict-aliasing"
+		CXXFLAGS="${CXXFLAGS} -felide-constructors -fno-rtti"
+		# Causes linkage failures.  Upstream bug #59607 removes it
+		if ! mysql_version_is_at_least "5.6" ; then
+			CXXFLAGS="${CXXFLAGS} -fno-implicit-templates"
+		fi
+		# As of 5.7, exceptions are used!
+		if ! mysql_version_is_at_least "5.7" ; then
+			CXXFLAGS="${CXXFLAGS} -fno-exceptions"
+		fi
+		export CXXFLAGS
+
+		# bug #283926, with GCC4.4, this is required to get correct behavior.
+		append-flags -fno-strict-aliasing
+
+		cmake-utils_src_configure
+	}
+
+	multilib_parallel_foreach_abi _mysql-multilib_src_configure "${@}"
 }
 
-multilib_src_configure() {
+# @FUNCTION: mysql-multilib_src_compile
+# @DESCRIPTION:
+# Compile the mysql code.
+mysql-multilib_src_compile() {
+	#_mysql-multilib_src_compile() {
+	#
+	#	if ! multilib_build_binaries ; then
+	#		BUILD_DIR="${BUILD_DIR}/libmysql" cmake-utils_src_compile
+	#	else
+	#		cmake-utils_src_compile
+	#	fi
+	#}
 
 	debug-print-function ${FUNCNAME} "$@"
 
-	CMAKE_BUILD_TYPE="RelWithDebInfo"
-
-	# debug hack wrt #497532
-	mycmakeargs=(
-		-DCMAKE_C_FLAGS_RELWITHDEBINFO="$(usex debug "" "-DNDEBUG")"
-		-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="$(usex debug "" "-DNDEBUG")"
-		-DCMAKE_INSTALL_PREFIX=${EPREFIX}/usr
-		-DMYSQL_DATADIR=${EPREFIX}/var/lib/mysql
-		-DSYSCONFDIR=${EPREFIX}/etc/mysql
-		-DINSTALL_BINDIR=bin
-		-DINSTALL_DOCDIR=share/doc/${P}
-		-DINSTALL_DOCREADMEDIR=share/doc/${P}
-		-DINSTALL_INCLUDEDIR=include/mysql
-		-DINSTALL_INFODIR=share/info
-		-DINSTALL_LIBDIR=$(get_libdir)
-		-DINSTALL_ELIBDIR=$(get_libdir)/mysql
-		-DINSTALL_MANDIR=share/man
-		-DINSTALL_MYSQLDATADIR=${EPREFIX}/var/lib/mysql
-		-DINSTALL_MYSQLSHAREDIR=share/mysql
-		-DINSTALL_MYSQLTESTDIR=share/mysql/mysql-test
-		-DINSTALL_PLUGINDIR=$(get_libdir)/mysql/plugin
-		-DINSTALL_SBINDIR=sbin
-		-DINSTALL_SCRIPTDIR=share/mysql/scripts
-		-DINSTALL_SQLBENCHDIR=share/mysql
-		-DINSTALL_SUPPORTFILESDIR=${EPREFIX}/usr/share/mysql
-		-DWITH_COMMENT="Gentoo Linux ${PF}"
-		$(cmake-utils_use_with test UNIT_TESTS)
-		-DWITH_LIBEDIT=0
-		-DWITH_ZLIB=system
-		-DWITHOUT_LIBWRAP=1
-		-DENABLED_LOCAL_INFILE=1
-		-DMYSQL_UNIX_ADDR=${EPREFIX}/var/run/mysqld/mysqld.sock
-		-DWITH_SSL=$(usex ssl system bundled)
-		-DWITH_DEFAULT_COMPILER_OPTIONS=0
-		-DWITH_DEFAULT_FEATURE_SET=0
-		$(cmake-utils_use_enable systemtap DTRACE)
-	)
-
-	if in_iuse bindist ; then
-		mycmakeargs+=(
-			-DWITH_READLINE=$(usex bindist 1 0)
-			-DNOT_FOR_DISTRIBUTION=$(usex bindist 0 1)
-			$(usex bindist -DHAVE_BFD_H=0 '')
-		)
-	fi
-
-	mycmakeargs+=( -DWITH_EDITLINE=system )
-
-	if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
-		mycmakeargs+=(
-			-DWITH_JEMALLOC=$(usex jemalloc system)
-		)
-
-		mysql_version_is_at_least "10.0.9" && mycmakeargs+=( -DWITH_PCRE=system )
-        fi
-
-	configure_cmake_locale
-
-	if multilib_is_native_abi && ! use minimal ; then
-		configure_cmake_standard
-	else
-		configure_cmake_minimal
-	fi
-
-	# Bug #114895, bug #110149
-	filter-flags "-O" "-O[01]"
-
-	CXXFLAGS="${CXXFLAGS} -fno-strict-aliasing"
-	CXXFLAGS="${CXXFLAGS} -felide-constructors -fno-rtti"
-	# Causes linkage failures.  Upstream bug #59607 removes it
-	if ! mysql_version_is_at_least "5.6" ; then
-		CXXFLAGS="${CXXFLAGS} -fno-implicit-templates"
-	fi
-	# As of 5.7, exceptions are used!
-	if ! mysql_version_is_at_least "5.7" ; then
-		CXXFLAGS="${CXXFLAGS} -fno-exceptions"
-	fi
-	export CXXFLAGS
-
-	# bug #283926, with GCC4.4, this is required to get correct behavior.
-	append-flags -fno-strict-aliasing
-
-	cmake-utils_src_configure
+#	multilib_foreach_abi _mysql-multilib_src_compile "${@}"
+	multilib_foreach_abi cmake-utils_src_compile "${@}"
 }
-
-mysql-multilib_src_compile() {
-	local _cmake_args=( "${@}" )
-
-	multilib-minimal_src_compile
-}
-
-multilib_src_compile() {
-	cmake-utils_src_compile "${_cmake_args[@]}"
-}
-
 
 # @FUNCTION: mysql-multilib_src_install
 # @DESCRIPTION:
 # Install mysql.
 mysql-multilib_src_install() {
-	multilib-minimal_src_install
-}
+	_mysql-multilib_src_install() {
+		debug-print-function ${FUNCNAME} "$@"
 
-multilib_src_install() {
+		if multilib_build_binaries; then
+			mysql-cmake_src_install
+		else
+		#	BUILD_DIR="${BUILD_DIR}/libmysql" cmake-utils_src_install
+			cmake-utils_src_install
+			if ! use minimal && [[ "${PN}" == "mariadb" || "${PN}" == "mariadb-galera" ]] ; then
+				insinto /usr/include/mysql/private
+				doins sql/*.h
+			fi
+			
+		fi
+		# Do multilib magic only when >1 ABI is used.
+		if [[ ${#MULTIBUILD_VARIANTS[@]} -gt 1 ]]; then
+			multilib_prepare_wrappers
+			# Make sure all headers are the same for each ABI.
+			multilib_check_headers
+		fi
+	}
+
 	debug-print-function ${FUNCNAME} "$@"
 
-	if multilib_is_native_abi; then
-		mysql-cmake_src_install
-	else
-		cmake-utils_src_install
-		if ! use minimal && [[ "${PN}" == "mariadb" || "${PN}" == "mariadb-galera" ]] ; then
-			insinto /usr/include/mysql/private
-			doins "${S}"/sql/*.h
-		fi
-	fi
+	multilib_foreach_abi _mysql-multilib_src_install "${@}"
+	multilib_install_wrappers
 }
 
 # @FUNCTION: mysql-multilib_pkg_preinst
@@ -602,16 +610,6 @@ mysql-multilib_pkg_postinst() {
 		elog "If you are upgrading major versions, you should run the"
 		elog "mysql_upgrade tool."
 		einfo
-
-		if [[ ${PN} == "mariadb-galera" ]] ; then
-			einfo
-			elog "Be sure to edit the my.cnf file to activate your cluster settings."
-			elog "This should be done after running \"emerge --config =${CATEGORY}/${PF}\""
-			elog "The first time the cluster is activated, you should add"
-			elog "--wsrep-new-cluster to the options in /etc/conf.d/mysql for one node."
-			elog "This option should then be removed for subsequent starts."
-			einfo
-		fi
 	fi
 }
 
@@ -645,7 +643,7 @@ mysql-multilib_pkg_config() {
 	local old_MY_DATADIR="${MY_DATADIR}"
 	local old_HOME="${HOME}"
 	# my_print_defaults needs to read stuff in $HOME/.my.cnf
-	export HOME=${EPREFIX}/root
+	export HOME=/root
 
 	# Make sure the vars are correctly initialized
 	mysql_init_vars
@@ -677,7 +675,7 @@ mysql-multilib_pkg_config() {
 				ewarn "Attempting to use ${MY_DATADIR_s}"
 			else
 				eerror "New MY_DATADIR (${MY_DATADIR_s}) does not exist"
-				die "Configuration Failed! Please reinstall ${CATEGORY}/${PN}"
+				die "Configuration Failed!  Please reinstall ${CATEGORY}/${PN}"
 			fi
 		fi
 	fi
@@ -696,11 +694,11 @@ mysql-multilib_pkg_config() {
 	MYSQL_LOG_BIN="$(mysql-multilib_getoptval mysqld log-bin)"
 	MYSQL_LOG_BIN=${MYSQL_LOG_BIN%/*}
 
-	if [[ ! -d "${ROOT}"/$MYSQL_TMPDIR ]]; then
+	if [[ ! -d "${EROOT}"/$MYSQL_TMPDIR ]]; then
 		einfo "Creating MySQL tmpdir $MYSQL_TMPDIR"
 		install -d -m 770 -o mysql -g mysql "${EROOT}"/$MYSQL_TMPDIR
 	fi
-	if [[ ! -d "${ROOT}"/$MYSQL_LOG_BIN ]]; then
+	if [[ ! -d "${EROOT}"/$MYSQL_LOG_BIN ]]; then
 		einfo "Creating MySQL log-bin directory $MYSQL_LOG_BIN"
 		install -d -m 770 -o mysql -g mysql "${EROOT}"/$MYSQL_LOG_BIN
 	fi
@@ -722,8 +720,8 @@ mysql-multilib_pkg_config() {
 
 	if [ -z "${MYSQL_ROOT_PASSWORD}" ]; then
 
-		einfo "Please provide a password for the mysql 'root' user now"
-		einfo "or through the ${HOME}/.my.cnf file."
+		einfo "Please provide a password for the mysql 'root' user now, in the"
+		einfo "MYSQL_ROOT_PASSWORD env var or through the /root/.my.cnf file."
 		ewarn "Avoid [\"'\\_%] characters in the password"
 		read -rsp "    >" pwd1 ; echo
 
@@ -737,12 +735,8 @@ mysql-multilib_pkg_config() {
 		unset pwd1 pwd2
 	fi
 
-	local options
+	local options="--log-warnings=0"
 	local sqltmp="$(emktemp)"
-
-	# Fix bug 446200. Don't reference host my.cnf, needs to come first,
-	# see http://bugs.mysql.com/bug.php?id=31312
-	use prefix && options="${options} '--defaults-file=${MY_SYSCONFDIR}/my.cnf'"
 
 	local help_tables="${ROOT}${MY_SHAREDSTATEDIR}/fill_help_tables.sql"
 	[[ -r "${help_tables}" ]] \
@@ -754,7 +748,7 @@ mysql-multilib_pkg_config() {
 	helpfile="${TMPDIR}/mysqld-help"
 	${EROOT}/usr/sbin/mysqld --verbose --help >"${helpfile}" 2>/dev/null
 	for opt in grant-tables host-cache name-resolve networking slave-start \
-		federated ssl log-bin relay-log slow-query-log external-locking \
+		federated innodb ssl log-bin relay-log slow-query-log external-locking \
 		ndbcluster log-slave-updates \
 		; do
 		optexp="--(skip-)?${opt}" optfull="--loose-skip-${opt}"
@@ -766,27 +760,15 @@ mysql-multilib_pkg_config() {
 
 	use prefix || options="${options} --user=mysql"
 
-	# MySQL 5.6+ needs InnoDB
-	if [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] ; then
-		mysql_version_is_at_least "5.6" || options="${options} --loose-skip-innodb"
-	fi
-
-	einfo "Creating the mysql database and setting proper"
-	einfo "permissions on it ..."
-
-	# Now that /var/run is a tmpfs mount point, we need to ensure it exists before using it
-	PID_DIR="${EROOT}/var/run/mysqld"
-	if [[ ! -d "${PID_DIR}" ]]; then
-		mkdir -p "${PID_DIR}" || die "Could not create pid directory"
-		chown mysql:mysql "${PID_DIR}" || die "Could not set ownership on pid directory"
-		chmod 755 "${PID_DIR}" || die "Could not set permissions on pid directory"
-	fi
+	# Fix bug 446200.  Don't reference host my.cnf
+	use prefix && [[ -f "${MY_SYSCONFDIR}/my.cnf" ]] \
+		&& options="${options} '--defaults-file=${MY_SYSCONFDIR}/my.cnf'"
 
 	pushd "${TMPDIR}" &>/dev/null
 	#cmd="'${EROOT}/usr/share/mysql/scripts/mysql_install_db' '--basedir=${EPREFIX}/usr' ${options}"
 	cmd=${EROOT}usr/share/mysql/scripts/mysql_install_db
 	[[ -f ${cmd} ]] || cmd=${EROOT}usr/bin/mysql_install_db
-	cmd="'$cmd' '--basedir=${EPREFIX}/usr' ${options} '--datadir=${ROOT}/${MY_DATADIR}' '--tmpdir=${ROOT}/${MYSQL_TMPDIR}'"
+	cmd="'$cmd' '--basedir=${EPREFIX}/usr' ${options}"
 	einfo "Command: $cmd"
 	eval $cmd \
 		>"${TMPDIR}"/mysql_install_db.log 2>&1
@@ -808,11 +790,22 @@ mysql-multilib_pkg_config() {
 		cat "${help_tables}" >> "${sqltmp}"
 	fi
 
+	einfo "Creating the mysql database and setting proper"
+	einfo "permissions on it ..."
+
+	# Now that /var/run is a tmpfs mount point, we need to ensure it exists before using it
+	PID_DIR="${EROOT}/var/run/mysqld"
+	if [[ ! -d "${PID_DIR}" ]]; then
+		mkdir "${PID_DIR}"
+		chown mysql:mysql "${PID_DIR}"
+		chmod 755 "${PID_DIR}"
+	fi
+
 	local socket="${EROOT}/var/run/mysqld/mysqld${RANDOM}.sock"
 	local pidfile="${EROOT}/var/run/mysqld/mysqld${RANDOM}.pid"
 	local mysqld="${EROOT}/usr/sbin/mysqld \
 		${options} \
-		$(use prefix || echo --user=mysql) \
+		--user=mysql \
 		--log-warnings=0 \
 		--basedir=${EROOT}/usr \
 		--datadir=${ROOT}/${MY_DATADIR} \
@@ -820,8 +813,7 @@ mysql-multilib_pkg_config() {
 		--net_buffer_length=16K \
 		--default-storage-engine=MyISAM \
 		--socket=${socket} \
-		--pid-file=${pidfile}
-		--tmpdir=${ROOT}/${MYSQL_TMPDIR}"
+		--pid-file=${pidfile}"
 	#einfo "About to start mysqld: ${mysqld}"
 	ebegin "Starting mysqld"
 	einfo "Command ${mysqld}"

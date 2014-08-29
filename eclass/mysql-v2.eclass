@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/mysql-v2.eclass,v 1.35 2014/08/10 05:47:24 robbat2 Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/mysql-v2.eclass,v 1.24 2013/02/13 00:40:57 robbat2 Exp $
 
 # @ECLASS: mysql-v2.eclass
 # @MAINTAINER:
@@ -8,7 +8,6 @@
 #	- MySQL Team <mysql-bugs@gentoo.org>
 #	- Robin H. Johnson <robbat2@gentoo.org>
 #	- Jorge Manuel B. S. Vicetto <jmbsvicetto@gentoo.org>
-#	- Brian Evans <grknight@gentoo.org>
 # @BLURB: This eclass provides most of the functions for mysql ebuilds
 # @DESCRIPTION:
 # The mysql-v2.eclass is the base eclass to build the mysql and
@@ -45,7 +44,7 @@ MYSQL_EXTRAS=""
 # @DESCRIPTION:
 # The version of the MYSQL_EXTRAS repo to use to build mysql
 # Use "none" to disable it's use
-[[ ${MY_EXTRAS_VER} == "live" ]] && MYSQL_EXTRAS="git-r3"
+[[ ${MY_EXTRAS_VER} == "live" ]] && MYSQL_EXTRAS="git-2"
 
 inherit eutils flag-o-matic gnuconfig ${MYSQL_EXTRAS} ${BUILD_INHERIT} mysql_fx versionator toolchain-funcs user
 
@@ -70,9 +69,9 @@ S="${WORKDIR}/mysql"
 
 [[ ${MY_EXTRAS_VER} == "latest" ]] && MY_EXTRAS_VER="20090228-0714Z"
 if [[ ${MY_EXTRAS_VER} == "live" ]]; then
+	EGIT_PROJECT=mysql-extras
 	EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/mysql-extras.git"
-	EGIT_CHECKOUT_DIR=${WORKDIR}/mysql-extras
-	EGIT_CLONE_TYPE=shallow
+	RESTRICT="userpriv"
 fi
 
 # @ECLASS-VARIABLE: MYSQL_PV_MAJOR
@@ -83,18 +82,10 @@ fi
 MYSQL_PV_MAJOR="$(get_version_component_range 1-2 ${PV})"
 
 # Cluster is a special case...
-if [[ ${PN} == "mysql-cluster" ]]; then
-	case ${PV} in
+if [[ "${PN}" == "mysql-cluster" ]]; then
+	case $PV in
 		6.1*|7.0*|7.1*) MYSQL_PV_MAJOR=5.1 ;;
-		7.2*) MYSQL_PV_MAJOR=5.5 ;;
-		7.3*) MYSQL_PV_MAJOR=5.6 ;;
-	esac
-fi
-
-# MariaDB has left the numbering schema but keeping compatibility
-if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]]; then
-	case ${PV} in
-		10.0*|10.1*) MYSQL_PV_MAJOR="5.6" ;;
+		7.2*|7.3*) MYSQL_PV_MAJOR=5.5 ;;
 	esac
 fi
 
@@ -140,7 +131,6 @@ if [[ -z ${SERVER_URI} ]]; then
 		MARIA_FULL_P="${PN}-${MARIA_FULL_PV}"
 		SERVER_URI="
 		http://ftp.osuosl.org/pub/mariadb/${MARIA_FULL_P}/kvm-tarbake-jaunty-x86/${MARIA_FULL_P}.tar.gz
-		http://ftp.osuosl.org/pub/mariadb/${MARIA_FULL_P}/source/${MARIA_FULL_P}.tar.gz
 		http://mirror.jmu.edu/pub/mariadb/${MARIA_FULL_P}/kvm-tarbake-jaunty-x86/${MARIA_FULL_P}.tar.gz
 		http://mirrors.coreix.net/mariadb/${MARIA_FULL_P}/kvm-tarbake-jaunty-x86/${MARIA_FULL_P}.tar.gz
 		http://mirrors.syringanetworks.net/mariadb/${MARIA_FULL_P}/kvm-tarbake-jaunty-x86/${MARIA_FULL_P}.tar.gz
@@ -171,7 +161,6 @@ if [[ -z ${SERVER_URI} ]]; then
 		MIRROR_PV=$(get_version_component_range 1-2 ${PV})
 		# Recently upstream switched to an archive site, and not on mirrors
 		SERVER_URI="http://downloads.mysql.com/archives/${URI_FILE}-${MIRROR_PV}/${URI_A}
-					https://downloads.skysql.com/files/${URI_FILE}-${MIRROR_PV}/${URI_A}
 					mirror://mysql/Downloads/${URI_DIR}-${PV%.*}/${URI_A}"
 	fi
 fi
@@ -185,11 +174,10 @@ if [[ ${MY_EXTRAS_VER} != "live" && ${MY_EXTRAS_VER} != "none" ]]; then
 		mirror://gentoo/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
 		http://g3nt8.org/patches/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
 		http://dev.gentoo.org/~robbat2/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
-		http://dev.gentoo.org/~jmbsvicetto/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2
-		http://dev.gentoo.org/~grknight/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2"
+		http://dev.gentoo.org/~jmbsvicetto/distfiles/mysql-extras-${MY_EXTRAS_VER}.tar.bz2"
 fi
 
-DESCRIPTION="A fast, multi-threaded, multi-user SQL database server"
+DESCRIPTION="A fast, multi-threaded, multi-user SQL database server."
 HOMEPAGE="http://www.mysql.com/"
 if [[ ${PN} == "mariadb" ]]; then
 	HOMEPAGE="http://mariadb.org/"
@@ -201,7 +189,7 @@ if [[ ${PN} == "mariadb-galera" ]]; then
 fi
 if [[ ${PN} == "percona-server" ]]; then
 	HOMEPAGE="http://www.percona.com/software/percona-server"
-	DESCRIPTION="An enhanced, drop-in replacement for MySQL from the Percona team"
+	DESCRIPTION="An enhanced, drop-in replacement fro MySQL from the Percona team"
 fi
 LICENSE="GPL-2"
 SLOT="0"
@@ -217,18 +205,6 @@ esac
 
 # Common IUSE
 IUSE="${IUSE} latin1 extraengine cluster max-idx-128 +community profiling"
-
-# This probably could be simplified, but the syntax would have to be just right
-if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] && \
-	mysql_version_is_at_least "5.5" ; then
-	IUSE="bindist ${IUSE}"
-elif [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] && \
-	mysql_check_version_range "5.5.37 to 5.6.11.99" ; then
-	IUSE="bindist ${IUSE}"
-elif [[ ${PN} == "mysql-cluster" ]] && \
-	mysql_check_version_range "7.2 to 7.2.99.99"  ; then
-	IUSE="bindist ${IUSE}"
-fi
 
 if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]]; then
 	mysql_check_version_range "5.1.38 to 5.3.99" && IUSE="${IUSE} libevent"
@@ -276,23 +252,16 @@ DEPEND="
 #	!dev-db/mariadb-native-client[mysqlcompat]
 
 # dev-db/mysql-5.6.12+ only works with dev-libs/libedit
-# This probably could be simplified
-if [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] && \
-	mysql_version_is_at_least "5.6.12" ; then
-	DEPEND="${DEPEND} dev-libs/libedit"
-elif [[ ${PN} == "mysql-cluster" ]] && mysql_version_is_at_least "7.3"; then
+if [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] && mysql_version_is_at_least "5.6.12" ; then
 	DEPEND="${DEPEND} dev-libs/libedit"
 else
-	if mysql_version_is_at_least "5.5" ; then
-		DEPEND="${DEPEND} !bindist? ( >=sys-libs/readline-4.1 )"
-	else
-		DEPEND="${DEPEND} >=sys-libs/readline-4.1"
-	fi
+	DEPEND="${DEPEND} >=sys-libs/readline-4.1"
 fi
 
 if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 	mysql_check_version_range "5.1.38 to 5.3.99" && DEPEND="${DEPEND} libevent? ( >=dev-libs/libevent-1.4 )"
 	mysql_version_is_at_least "5.2" && DEPEND="${DEPEND} oqgraph? ( >=dev-libs/boost-1.40.0 )"
+	mysql_version_is_at_least "5.2.5" && DEPEND="${DEPEND} sphinx? ( app-misc/sphinx )"
 	mysql_version_is_at_least "5.2.10" && DEPEND="${DEPEND} !minimal? ( pam? ( virtual/pam ) )"
 	# Bug 441700 MariaDB >=5.3 include custom mytop
 	mysql_version_is_at_least "5.3" && DEPEND="${DEPEND} perl? ( !dev-db/mytop )"
@@ -304,7 +273,8 @@ if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 	fi
 	mysql_version_is_at_least "10.0.7" && DEPEND="${DEPEND} oqgraph? ( dev-libs/judy )"
 	if mysql_version_is_at_least "10.0.9" ; then
-		DEPEND="${DEPEND} >=dev-libs/libpcre-8.35"
+		use embedded && DEPEND="${DEPEND} >=dev-libs/libpcre-8.35[static-libs]" || \
+			DEPEND="${DEPEND} >=dev-libs/libpcre-8.35"
 	fi
 fi
 
@@ -315,14 +285,12 @@ for i in "mysql" "mariadb" "mariadb-galera" "percona-server" "mysql-cluster" ; d
 done
 
 if mysql_version_is_at_least "5.5.7" ; then
-	DEPEND="${DEPEND}
-		jemalloc? ( dev-libs/jemalloc[static-libs?] )
-		tcmalloc? ( dev-util/google-perftools )
-		>=sys-libs/zlib-1.2.3[static-libs?]
-		ssl? ( >=dev-libs/openssl-0.9.6d[static-libs?] )
-		systemtap? ( >=dev-util/systemtap-1.3 )
-		kernel_linux? ( dev-libs/libaio )
-	"
+	DEPEND="${DEPEND} jemalloc? ( dev-libs/jemalloc[static-libs?] ) 
+	tcmalloc? ( dev-util/google-perftools )
+	>=sys-libs/zlib-1.2.3[static-libs?]
+        ssl? ( >=dev-libs/openssl-0.9.6d[static-libs?] )
+	systemtap? ( >=dev-util/systemtap-1.3 )
+	kernel_linux? ( dev-libs/libaio )"
 fi
 
 if [[ ${PN} == "mysql-cluster" ]] ; then
@@ -341,14 +309,11 @@ RDEPEND="${DEPEND}
 if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 	# Bug 455016 Add dependencies of mytop
 	if mysql_version_is_at_least "5.3" ; then
-		RDEPEND="${RDEPEND}
-			perl? (
-				virtual/perl-Getopt-Long
-				dev-perl/TermReadKey
-				virtual/perl-Term-ANSIColor
-				virtual/perl-Time-HiRes
-			)
-		"
+		RDEPEND="${RDEPEND} perl? (
+			virtual/perl-Getopt-Long
+			dev-perl/TermReadKey
+			virtual/perl-Term-ANSIColor
+			virtual/perl-Time-HiRes ) "
 	fi
 fi
 
@@ -356,14 +321,14 @@ if [[ ${PN} == "mariadb-galera" ]] ; then
 	# The wsrep API version must match between the ebuild and sys-cluster/galera.
 	# This will be indicated by WSREP_REVISION in the ebuild and the first number
 	# in the version of sys-cluster/galera
-	RDEPEND="${RDEPEND}
+	RDEPEND="${RDEPEND} 
 		=sys-cluster/galera-${WSREP_REVISION}*
 	"
 fi
 
 if [[ ${PN} == "mysql-cluster" ]] ; then
-	mysql_version_is_at_least "7.2.9" && RDEPEND="${RDEPEND} java? ( >=virtual/jre-1.6 )" && \
-		DEPEND="${DEPEND} java? ( >=virtual/jdk-1.6 )"
+       mysql_version_is_at_least "7.2.9" && RDEPEND="${RDEPEND} java? ( >=virtual/jre-1.6 )" && \
+               DEPEND="${DEPEND} java? ( >=virtual/jdk-1.6 )"
 fi
 
 DEPEND="${DEPEND}
@@ -474,10 +439,10 @@ configure_common() {
 # @FUNCTION: mysql-v2_pkg_setup
 # @DESCRIPTION:
 # Perform some basic tests and tasks during pkg_setup phase:
-#	die if FEATURES="test", USE="-minimal" and not using FEATURES="userpriv"
-#	check for conflicting use flags
-#	create new user and group for mysql
-#	warn about deprecated features
+#   die if FEATURES="test", USE="-minimal" and not using FEATURES="userpriv"
+#   check for conflicting use flags
+#   create new user and group for mysql
+#   warn about deprecated features
 mysql-v2_pkg_setup() {
 
 	if has test ${FEATURES} ; then
@@ -508,7 +473,7 @@ mysql-v2_pkg_setup() {
 		mysql_version_is_at_least "7.2.9" && java-pkg-opt-2_pkg_setup
 	fi
 
-	if use_if_iuse tokudb && [[ $(gcc-major-version) -lt 4 || $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 7 ]] ; then
+	if use_if_iuse tokudb && [[ $(gcc-version) < 4.7 ]] ; then
 		eerror "${PN} with tokudb needs to be built with gcc-4.7 or later."
 		eerror "Please use gcc-config to switch to gcc-4.7 or later version."
 		die
@@ -526,7 +491,7 @@ mysql-v2_src_unpack() {
 
 	unpack ${A}
 	# Grab the patches
-	[[ "${MY_EXTRAS_VER}" == "live" ]] && S="${WORKDIR}/mysql-extras" git-r3_src_unpack
+	[[ "${MY_EXTRAS_VER}" == "live" ]] && S="${WORKDIR}/mysql-extras" git-2_src_unpack
 
 	mv -f "${WORKDIR}/${MY_SOURCEDIR}" "${S}"
 }
@@ -576,11 +541,11 @@ mysql-v2_pkg_preinst() {
 # @FUNCTION: mysql-v2_pkg_postinst
 # @DESCRIPTION:
 # Run post-installation tasks:
-#	create the dir for logfiles if non-existant
-#	touch the logfiles and secure them
-#	install scripts
-#	issue required steps for optional features
-#	issue deprecation warnings
+#   create the dir for logfiles if non-existant
+#   touch the logfiles and secure them
+#   install scripts
+#   issue required steps for optional features
+#   issue deprecation warnings
 mysql-v2_pkg_postinst() {
 
 	# Make sure the vars are correctly initialized
@@ -653,11 +618,11 @@ mysql-v2_pkg_postinst() {
 		elog "remove the ${MY_DATADIR}/mysql/plugin.* files, then"
 		elog "use the MySQL upgrade script to restore the table"
 		elog "or execute the following SQL command:"
-		elog "	CREATE TABLE IF NOT EXISTS plugin ("
-		elog "		name char(64) binary DEFAULT '' NOT NULL,"
-		elog "		dl char(128) DEFAULT '' NOT NULL,"
-		elog "		PRIMARY KEY (name)"
-		elog "	) CHARACTER SET utf8 COLLATE utf8_bin;"
+		elog "    CREATE TABLE IF NOT EXISTS plugin ("
+		elog "      name char(64) binary DEFAULT '' NOT NULL,"
+		elog "      dl char(128) DEFAULT '' NOT NULL,"
+		elog "      PRIMARY KEY (name)"
+		elog "    ) CHARACTER SET utf8 COLLATE utf8_bin;"
 	fi
 }
 
@@ -689,7 +654,7 @@ mysql-v2_pkg_config() {
 	local old_MY_DATADIR="${MY_DATADIR}"
 	local old_HOME="${HOME}"
 	# my_print_defaults needs to read stuff in $HOME/.my.cnf
-	export HOME=${EPREFIX}/root
+	export HOME=/root
 
 	# Make sure the vars are correctly initialized
 	mysql_init_vars
@@ -721,7 +686,7 @@ mysql-v2_pkg_config() {
 				ewarn "Attempting to use ${MY_DATADIR_s}"
 			else
 				eerror "New MY_DATADIR (${MY_DATADIR_s}) does not exist"
-				die "Configuration Failed! Please reinstall ${CATEGORY}/${PN}"
+				die "Configuration Failed!  Please reinstall ${CATEGORY}/${PN}"
 			fi
 		fi
 	fi
@@ -740,13 +705,13 @@ mysql-v2_pkg_config() {
 	MYSQL_LOG_BIN="$(mysql-v2_getoptval mysqld log-bin)"
 	MYSQL_LOG_BIN=${MYSQL_LOG_BIN%/*}
 
-	if [[ ! -d "${ROOT}"/$MYSQL_TMPDIR ]]; then
+	if [[ ! -d "${EROOT}"/$MYSQL_TMPDIR ]]; then
 		einfo "Creating MySQL tmpdir $MYSQL_TMPDIR"
-		install -d -m 770 -o mysql -g mysql "${ROOT}"/$MYSQL_TMPDIR
+		install -d -m 770 -o mysql -g mysql "${EROOT}"/$MYSQL_TMPDIR
 	fi
-	if [[ ! -d "${ROOT}"/$MYSQL_LOG_BIN ]]; then
+	if [[ ! -d "${EROOT}"/$MYSQL_LOG_BIN ]]; then
 		einfo "Creating MySQL log-bin directory $MYSQL_LOG_BIN"
-		install -d -m 770 -o mysql -g mysql "${ROOT}"/$MYSQL_LOG_BIN
+		install -d -m 770 -o mysql -g mysql "${EROOT}"/$MYSQL_LOG_BIN
 	fi
 	if [[ ! -d "${EROOT}"/$MYSQL_RELAY_LOG ]]; then
 		einfo "Creating MySQL relay-log directory $MYSQL_RELAY_LOG"
@@ -767,7 +732,7 @@ mysql-v2_pkg_config() {
 	if [ -z "${MYSQL_ROOT_PASSWORD}" ]; then
 
 		einfo "Please provide a password for the mysql 'root' user now, in the"
-		einfo "MYSQL_ROOT_PASSWORD env var or through the ${HOME}/.my.cnf file."
+		einfo "MYSQL_ROOT_PASSWORD env var or through the /root/.my.cnf file."
 		ewarn "Avoid [\"'\\_%] characters in the password"
 		read -rsp "    >" pwd1 ; echo
 
@@ -781,12 +746,8 @@ mysql-v2_pkg_config() {
 		unset pwd1 pwd2
 	fi
 
-	local options
+	local options="--log-warnings=0"
 	local sqltmp="$(emktemp)"
-
-	# Fix bug 446200. Don't reference host my.cnf, needs to come first,
-	# see http://bugs.mysql.com/bug.php?id=31312
-	use prefix && options="${options} --defaults-file=${MY_SYSCONFDIR}/my.cnf"
 
 	local help_tables="${ROOT}${MY_SHAREDSTATEDIR}/fill_help_tables.sql"
 	[[ -r "${help_tables}" ]] \
@@ -798,7 +759,7 @@ mysql-v2_pkg_config() {
 	helpfile="${TMPDIR}/mysqld-help"
 	${EROOT}/usr/sbin/mysqld --verbose --help >"${helpfile}" 2>/dev/null
 	for opt in grant-tables host-cache name-resolve networking slave-start \
-		federated ssl log-bin relay-log slow-query-log external-locking \
+		federated innodb ssl log-bin relay-log slow-query-log external-locking \
 		ndbcluster log-slave-updates \
 		; do
 		optexp="--(skip-)?${opt}" optfull="--loose-skip-${opt}"
@@ -810,27 +771,15 @@ mysql-v2_pkg_config() {
 
 	use prefix || options="${options} --user=mysql"
 
-	# MySQL 5.6+ needs InnoDB
-	if [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] ; then
-		mysql_version_is_at_least "5.6" || options="${options} --loose-skip-innodb"
-	fi
-
-	einfo "Creating the mysql database and setting proper"
-	einfo "permissions on it ..."
-
-	# Now that /var/run is a tmpfs mount point, we need to ensure it exists before using it
-	PID_DIR="${EROOT}/var/run/mysqld"
-	if [[ ! -d "${PID_DIR}" ]]; then
-		mkdir -p "${PID_DIR}" || die "Could not create pid directory"
-		chown mysql:mysql "${PID_DIR}" || die "Could not set ownership on pid directory"
-		chmod 755 "${PID_DIR}" || die "Could not set permissions on pid directory"
-	fi
+	# Fix bug 446200.  Don't reference host my.cnf
+	use prefix && [[ -f "${MY_SYSCONFDIR}/my.cnf" ]] \
+		&& options="${options} '--defaults-file=${MY_SYSCONFDIR}/my.cnf'"
 
 	pushd "${TMPDIR}" &>/dev/null
 	#cmd="'${EROOT}/usr/share/mysql/scripts/mysql_install_db' '--basedir=${EPREFIX}/usr' ${options}"
 	cmd=${EROOT}usr/share/mysql/scripts/mysql_install_db
 	[[ -f ${cmd} ]] || cmd=${EROOT}usr/bin/mysql_install_db
-	cmd="'$cmd' '--basedir=${EPREFIX}/usr' ${options} '--datadir=${ROOT}/${MY_DATADIR}' '--tmpdir=${ROOT}/${MYSQL_TMPDIR}'"
+	cmd="'$cmd' '--basedir=${EPREFIX}/usr' ${options}"
 	einfo "Command: $cmd"
 	eval $cmd \
 		>"${TMPDIR}"/mysql_install_db.log 2>&1
@@ -852,11 +801,22 @@ mysql-v2_pkg_config() {
 		cat "${help_tables}" >> "${sqltmp}"
 	fi
 
+	einfo "Creating the mysql database and setting proper"
+	einfo "permissions on it ..."
+
+	# Now that /var/run is a tmpfs mount point, we need to ensure it exists before using it
+	PID_DIR="${EROOT}/var/run/mysqld"
+	if [[ ! -d "${PID_DIR}" ]]; then
+		mkdir "${PID_DIR}"
+		chown mysql:mysql "${PID_DIR}"
+		chmod 755 "${PID_DIR}"
+	fi
+
 	local socket="${EROOT}/var/run/mysqld/mysqld${RANDOM}.sock"
 	local pidfile="${EROOT}/var/run/mysqld/mysqld${RANDOM}.pid"
 	local mysqld="${EROOT}/usr/sbin/mysqld \
 		${options} \
-		$(use prefix || echo --user=mysql) \
+		--user=mysql \
 		--log-warnings=0 \
 		--basedir=${EROOT}/usr \
 		--datadir=${ROOT}/${MY_DATADIR} \
@@ -864,8 +824,7 @@ mysql-v2_pkg_config() {
 		--net_buffer_length=16K \
 		--default-storage-engine=MyISAM \
 		--socket=${socket} \
-		--pid-file=${pidfile}
-		--tmpdir=${ROOT}/${MYSQL_TMPDIR}"
+		--pid-file=${pidfile}"
 	#einfo "About to start mysqld: ${mysqld}"
 	ebegin "Starting mysqld"
 	einfo "Command ${mysqld}"

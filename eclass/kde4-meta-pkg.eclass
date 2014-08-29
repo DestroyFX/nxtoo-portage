@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/kde4-meta-pkg.eclass,v 1.13 2014/07/11 08:21:58 ulm Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/kde4-meta-pkg.eclass,v 1.12 2013/04/07 17:33:18 kensington Exp $
 
 # @ECLASS: kde4-meta-pkg.eclass
 # @MAINTAINER:
@@ -9,8 +9,8 @@
 # @DESCRIPTION:
 # This eclass should only be used for defining meta packages for KDE4.
 
-if [[ -z ${_KDE4_META_PKG_ECLASS} ]]; then
-_KDE4_META_PKG_ECLASS=1
+if [[ ${___ECLASS_ONCE_KDE4_META_PKG} != "recur -_+^+_- spank" ]] ; then
+___ECLASS_ONCE_KDE4_META_PKG="recur -_+^+_- spank"
 
 inherit kde4-functions
 

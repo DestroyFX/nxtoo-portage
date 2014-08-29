@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/python-r1.eclass,v 1.76 2014/08/18 08:56:06 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/python-r1.eclass,v 1.71 2014/04/09 21:34:10 mgorny Exp $
 
 # @ECLASS: python-r1
 # @MAINTAINER:
@@ -293,7 +293,7 @@ python_gen_usedep() {
 	[[ ${matches[@]} ]] || die "No supported implementations match python_gen_usedep patterns: ${@}"
 
 	local out=${matches[@]}
-	echo "${out// /,}"
+	echo ${out// /,}
 }
 
 # @FUNCTION: python_gen_useflags
@@ -330,7 +330,7 @@ python_gen_useflags() {
 		done
 	done
 
-	echo "${matches[@]}"
+	echo ${matches[@]}
 }
 
 # @FUNCTION: python_gen_cond_dep
@@ -340,24 +340,20 @@ python_gen_useflags() {
 # of Python implementations which are both in PYTHON_COMPAT and match
 # any of the patterns passed as the remaining parameters.
 #
-# In order to enforce USE constraints on the packages, verbatim
-# '${PYTHON_USEDEP}' (quoted!) may be placed in the dependency
-# specification. It will get expanded within the function into a proper
-# USE dependency string.
+# Please note that USE constraints on the package need to be enforced
+# separately. Therefore, the dependency usually needs to use
+# python_gen_usedep as well.
 #
 # Example:
 # @CODE
 # PYTHON_COMPAT=( python{2_5,2_6,2_7} )
-# RDEPEND="$(python_gen_cond_dep \
-#   'dev-python/unittest2[${PYTHON_USEDEP}]' python{2_5,2_6})"
+# RDEPEND="$(python_gen_cond_dep dev-python/unittest2 python{2_5,2_6})"
 # @CODE
 #
 # It will cause the variable to look like:
 # @CODE
-# RDEPEND="python_targets_python2_5? (
-#     dev-python/unittest2[python_targets_python2_5?] )
-#	python_targets_python2_6? (
-#     dev-python/unittest2[python_targets_python2_6?] )"
+# RDEPEND="python_targets_python2_5? ( dev-python/unittest2 )
+#	python_targets_python2_6? ( dev-python/unittest2 )"
 # @CODE
 python_gen_cond_dep() {
 	debug-print-function ${FUNCNAME} "${@}"
@@ -373,21 +369,13 @@ python_gen_cond_dep() {
 
 		for pattern; do
 			if [[ ${impl} == ${pattern} ]]; then
-				# substitute ${PYTHON_USEDEP} if used
-				# (since python_gen_usedep() will not return ${PYTHON_USEDEP}
-				#  the code is run at most once)
-				if [[ ${dep} == *'${PYTHON_USEDEP}'* ]]; then
-					local PYTHON_USEDEP=$(python_gen_usedep "${@}")
-					dep=${dep//\$\{PYTHON_USEDEP\}/${PYTHON_USEDEP}}
-				fi
-
 				matches+=( "python_targets_${impl}? ( ${dep} )" )
 				break
 			fi
 		done
 	done
 
-	echo "${matches[@]}"
+	echo ${matches[@]}
 }
 
 # @ECLASS-VARIABLE: BUILD_DIR
@@ -785,8 +773,6 @@ python_replicate_script() {
 	debug-print-function ${FUNCNAME} "${@}"
 
 	_python_replicate_script() {
-		local _PYTHON_FIX_SHEBANG_QUIET=1
-
 		if _python_want_python_exec2; then
 			local PYTHON_SCRIPTDIR
 			python_export PYTHON_SCRIPTDIR
@@ -796,7 +782,7 @@ python_replicate_script() {
 				doexe "${files[@]}"
 			)
 
-			python_fix_shebang -q \
+			_python_rewrite_shebang "${EPYTHON}" \
 				"${files[@]/*\//${D%/}/${PYTHON_SCRIPTDIR}/}"
 		else
 			local f
@@ -804,7 +790,7 @@ python_replicate_script() {
 				cp -p "${f}" "${f}-${EPYTHON}" || die
 			done
 
-			python_fix_shebang -q \
+			_python_rewrite_shebang "${EPYTHON}" \
 				"${files[@]/%/-${EPYTHON}}"
 		fi
 	}

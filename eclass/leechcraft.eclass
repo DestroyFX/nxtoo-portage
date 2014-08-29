@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/leechcraft.eclass,v 1.16 2014/08/03 17:08:27 maksbotan Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/leechcraft.eclass,v 1.14 2014/04/15 16:06:56 maksbotan Exp $
 #
 # @ECLASS: leechcraft.eclass
 # @MAINTAINER:
@@ -36,12 +36,17 @@ if [[ ${PV} == 9999 ]]; then
 	inherit git-2
 else
 	DEPEND="app-arch/xz-utils"
-	SRC_URI="http://dist.leechcraft.org/LeechCraft/${PV}/leechcraft-${PV}.tar.xz"
+	SRC_URI="mirror://sourceforge/leechcraft/leechcraft-${PV}.tar.xz
+		http://dist.leechcraft.org/LeechCraft/${PV}/leechcraft-${PV}.tar.xz"
 	S="${WORKDIR}/leechcraft-${PV}"
 fi
 
 HOMEPAGE="http://leechcraft.org/"
-LICENSE="Boost-1.0"
+if version_is_at_least 0.5.95; then
+	LICENSE="Boost-1.0"
+else
+	LICENSE="GPL-3"
+fi
 
 # @ECLASS-VARIABLE: LEECHCRAFT_PLUGIN_CATEGORY
 # @DEFAULT_UNSET
@@ -67,11 +72,13 @@ EXPORT_FUNCTIONS "pkg_pretend"
 leechcraft_pkg_pretend() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	# 0.5.85 and later requires at least gcc 4.6
-	if [[ ${MERGE_TYPE} != binary ]]; then
-		[[ $(gcc-major-version) -lt 4 ]] || \
-				( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 6 ]] ) \
-			&& die "Sorry, but gcc 4.6 or higher is required."
+	if version_is_at_least 0.5.85; then
+		# 0.5.85 and later requires at least gcc 4.6
+		if [[ ${MERGE_TYPE} != binary ]]; then
+			[[ $(gcc-major-version) -lt 4 ]] || \
+					( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 6 ]] ) \
+				&& die "Sorry, but gcc 4.6 or higher is required."
+		fi
 	fi
 	if version_is_at_least 0.6.66 || ( [[ ${PN} == lc-monocle ]] && version_is_at_least 0.6.65 ); then
 		# 0.6.65 monocle and all later plugins require at least gcc 4.8

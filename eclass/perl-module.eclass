@@ -1,6 +1,5 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright owners: Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/perl-module.eclass,v 1.139 2014/03/30 19:25:14 zlogene Exp $
 
 # @ECLASS: perl-module.eclass
 # @MAINTAINER:
@@ -21,7 +20,7 @@ case "${EAPI:-0}" in
 	0|1)
 		PERL_EXPF+=" pkg_setup pkg_preinst pkg_postinst pkg_prerm pkg_postrm"
 		;;
-	2|3|4|5)
+	2|3|4|4-python|5|5-progress)
 		PERL_EXPF+=" src_prepare src_configure"
 		[[ ${CATEGORY} == "perl-core" ]] && \
 			PERL_EXPF+=" pkg_postinst pkg_postrm"
@@ -29,7 +28,7 @@ case "${EAPI:-0}" in
 		case "${GENTOO_DEPEND_ON_PERL:-yes}" in
 		yes)
 			case "${EAPI:-0}" in
-			5)
+			5|5-progress)
 				case "${GENTOO_DEPEND_ON_PERL_SUBSLOT:-yes}" in
 				yes)
 					DEPEND="dev-lang/perl:=[-build(-)]"

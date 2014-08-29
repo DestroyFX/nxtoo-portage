@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/qmake-utils.eclass,v 1.3 2014/07/28 21:19:52 pesa Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/qmake-utils.eclass,v 1.1 2013/12/02 09:42:38 pinkbyte Exp $
 
 # @ECLASS: qmake-utils.eclass
 # @MAINTAINER:
@@ -11,8 +11,8 @@
 # @DESCRIPTION:
 # Utility eclass providing wrapper functions for Qt4 and Qt5 qmake.
 
-if [[ -z ${_QMAKE_UTILS_ECLASS} ]]; then
-_QMAKE_UTILS_ECLASS=1
+if [[ ${___ECLASS_ONCE_QMAKE_UTILS} != "recur -_+^+_- spank" ]]; then
+___ECLASS_ONCE_QMAKE_UTILS="recur -_+^+_- spank"
 
 inherit eutils multilib toolchain-funcs
 
@@ -215,11 +215,9 @@ eqmake5() {
 		-makefile \
 		QMAKE_AR="$(tc-getAR) cqs" \
 		QMAKE_CC="$(tc-getCC)" \
-		QMAKE_LINK_C="$(tc-getCC)" \
-		QMAKE_LINK_C_SHLIB="$(tc-getCC)" \
 		QMAKE_CXX="$(tc-getCXX)" \
 		QMAKE_LINK="$(tc-getCXX)" \
-		QMAKE_LINK_SHLIB="$(tc-getCXX)" \
+		QMAKE_LINK_C="$(tc-getCC)" \
 		QMAKE_OBJCOPY="$(tc-getOBJCOPY)" \
 		QMAKE_RANLIB= \
 		QMAKE_STRIP= \
