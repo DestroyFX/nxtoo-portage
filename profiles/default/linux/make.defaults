@@ -56,3 +56,7 @@ LDFLAGS="-Wl,-O1 -Wl,--as-needed"
 # http://archives.gentoo.org/gentoo-dev/msg_dc705dc2c1a45e18a85aa62e8fb17009.xml
 # Build kernel modules from linux-mod by default:
 USE="${USE} modules"
+
+USE_EXPAND="PYTHON_ABIS"
+PYTHON_ABIS="2.7 3.3"
+USE="${USE} python_targets_python2_7 python_targets_python3_3 -python_targets_python3_2"
