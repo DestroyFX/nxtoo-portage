@@ -69,6 +69,14 @@ if [[ "${PN}" == "mysql-cluster" ]]; then
 	esac
 fi
 
+# MariaDB has left the numbering schema but keeping compatibility
+if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]]; then
+	case ${PV} in
+		10.0*) MYSQL_PV_MAJOR="5.6" ;;
+		10.1*) MYSQL_PV_MAJOR="5.7" ;;
+	esac
+fi
+
 # @ECLASS-VARIABLE: MYSQL_VERSION_ID
 # @DESCRIPTION:
 # MYSQL_VERSION_ID will be:
@@ -126,7 +134,7 @@ if [[ -z ${SERVER_URI} ]]; then
 		MY_PV=$(get_version_component_range 1-3 ${PV})
 		PERCONA_RELEASE=$(get_version_component_range 4-5 ${PV})
 		PERCONA_RC=$(get_version_component_range 6 ${PV})
-		SERVER_URI="http://www.percona.com/redir/downloads/${PERCONA_PN}-${MIRROR_PV}/${PERCONA_PN}-${MY_PV}-${PERCONA_RC}${PERCONA_RELEASE}/source/tarball/${PERCONA_PN}-${MY_PV}-${PERCONA_RC}${PERCONA_RELEASE}.tar.gz"
+		SERVER_URI="http://www.percona.com/redir/downloads/${PERCONA_PN}-${MIRROR_PV}/${PERCONA_PN}-${MY_PV}-${PERCONA_RC}${PERCONA_RELEASE}/source/tarball/${PN}-${MY_PV}-${PERCONA_RC}${PERCONA_RELEASE}.tar.gz"
 #		http://www.percona.com/redir/downloads/Percona-Server-5.5/LATEST/source/tarball/Percona-Server-5.5.30-rel30.2.tar.gz
 #		http://www.percona.com/redir/downloads/Percona-Server-5.6/Percona-Server-5.6.13-rc60.5/source/tarball/Percona-Server-5.6.13-rc60.5.tar.gz
 	else
@@ -225,6 +233,10 @@ else
 	DEPEND="${DEPEND} >=sys-libs/readline-4.1:0=[${MULTILIB_USEDEP}]"
 fi
 
+if [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] ; then
+	mysql_version_is_at_least "5.7.5" && DEPEND="${DEPEND} dev-libs/boost:0="
+fi
+
 if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 	# Bug 441700 MariaDB >=5.3 include custom mytop
 	DEPEND="${DEPEND} 
@@ -244,6 +256,8 @@ if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then
 		DEPEND="${DEPEND} >=dev-libs/libpcre-8.35:3="
 	fi
 fi
+
+[[ ${PN} == "percona-server" ]] && DEPEND="${DEPEND} !minimal? ( pam? ( virtual/pam:0= ) )"
 
 # Having different flavours at the same time is not a good idea
 for i in "mysql" "mariadb" "mariadb-galera" "percona-server" "mysql-cluster" ; do
@@ -279,6 +293,7 @@ if [[ ${PN} == "mariadb-galera" ]] ; then
 	# in the version of sys-cluster/galera
 	RDEPEND="${RDEPEND} 
 		=sys-cluster/galera-${WSREP_REVISION}*
+		sys-process/lsof
 	"
 fi
 
@@ -301,6 +316,9 @@ PDEPEND="perl? ( >=dev-perl/DBD-mysql-2.9004 )
 
 # my_config.h includes ABI specific data
 MULTILIB_WRAPPED_HEADERS=( /usr/include/mysql/my_config.h )
+
+# wrap the config script
+MULTILIB_CHOST_TOOLS=( /usr/bin/mysql_config )
 
 #
 # HELPER FUNCTIONS:
