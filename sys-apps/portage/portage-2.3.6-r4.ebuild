@@ -13,8 +13,8 @@ KEYWORDS="*"
 SLOT="0"
 IUSE="build doc epydoc +ipc linguas_pl linguas_ru pypy2_0 python2 python3 selinux xattr"
 GITHUB_REPO="portage-funtoo"
-GITHUB_USER="funtoo"
-GITHUB_TAG="funtoo-${PVR}"
+GITHUB_USER="DestroyFX"
+GITHUB_TAG="nxtoo-${PVR}"
 RESTRICT="mirror"
 
 # Import of the io module in python-2.6 raises ImportError for the
