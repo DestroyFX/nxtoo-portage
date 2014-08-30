@@ -46,3 +46,4 @@ virtual/shadow
 sys-apps/which
 sys-fs/eudev
 dev-vcs/git
+sys-apps/openrc
