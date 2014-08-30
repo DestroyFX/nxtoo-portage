@@ -217,6 +217,7 @@ multilib_src_install_all() {
 
 	insinto /lib/udev/rules.d
 	doins "${FILESDIR}"/40-gentoo.rules
+	doins "${FILESDIR}"/80-net-name-slot.rules
 
 	insinto /usr/share/doc/${PF}/html/gudev
 	doins "${S}"/docs/gudev/html/*
