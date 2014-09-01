@@ -511,6 +511,8 @@ app-emulation/ganeti:haskell-daemons - Build haskell daemons instead of python
 app-emulation/ganeti:htools - Enable htools support
 app-emulation/ganeti:kvm - Enable KVM support
 app-emulation/ganeti:lxc - Enable Linux Countainers support
+app-emulation/ganeti:monitoring - Enable the ganeti monitoring daemon
+app-emulation/ganeti:multiple-users - Enable support for running VMs as different users.
 app-emulation/ganeti:rbd - Enable rados block device support via sys-cluster/ceph
 app-emulation/ganeti:sharedstorage - Enable Shared Storage support
 app-emulation/ganeti:xen - Enable Xen support
@@ -2401,6 +2403,8 @@ dev-util/google-perftools:largepages - Use (experimental) larger pages for tcmal
 dev-util/google-perftools:minimal - Only build the tcmalloc_minimal library, ignoring the heap checker and the profilers.
 dev-util/gtk-doc:highlight - Enable source code highlighting
 dev-util/gtk-doc:vim - Enable source code highlighting through app-editors/vim
+dev-util/intel-ocl-sdk:android - Install android related files
+dev-util/intel-ocl-sdk:bundled_libs - Keep bundled-libs (not recommended)
 dev-util/intel-ocl-sdk:tools - Install Intel Offline Compiler
 dev-util/kdevelop:cmake - Enable support for CMake build system
 dev-util/kdevelop:okteta - Enable hex editor plugin
@@ -4993,7 +4997,6 @@ net-im/qutim:vkontakte - Enable vkontakte protocol support
 net-im/qutim:webkit - Enable Adium-like WebView plugin
 net-im/qutim:xscreensaver - Use X screensaver protocol extension to monitor idle/active status based on mouse/keyboard events
 net-im/skype:pax_kernel - Triggers a paxmarking of the main skype binary
-net-im/skype:qt-static - Install the main skype binary with internal copy of Qt
 net-im/telepathy-connection-managers:irc - Enable Internet Relay Chat (IRC) support.
 net-im/telepathy-connection-managers:jabber - Enable XMPP protocol handler (this is also Google Talk).
 net-im/telepathy-connection-managers:sip - Enable SIP/SIMPLE messaging and calling.
@@ -7237,8 +7240,7 @@ www-misc/zoneminder:gcrypt - ...
 www-misc/zoneminder:openssl - ...
 www-misc/zoneminder:vlc - Enable using media-libs/vlc for streaming from cameras
 www-plugins/adobe-flash:kde - Enables a KCM plugin for configuring flash player preferences
-www-plugins/chrome-binary-plugins:flash - Install Chrome's native Pepper Flash.
-www-plugins/chrome-binary-plugins:pdf - Install Chrome's native PDF reader plugin.
+www-plugins/chrome-binary-plugins:flash - Install Chrome's native Pepper Flash
 www-plugins/gnash:agg - Rendering based on the Anti-Grain Geometry Rendering Engine library
 www-plugins/gnash:cygnal - Enable building of the cygnal server
 www-plugins/gnash:dump - Enable dump output module for creating video from SWF
