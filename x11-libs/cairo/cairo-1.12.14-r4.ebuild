@@ -81,6 +81,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-respect-fontconfig.patch
 	epatch "${FILESDIR}"/${PN}-1.12.12-disable-test-suite.patch
 	epatch "${FILESDIR}"/${PN}-1.12.14-libpng16.patch
+	epatch "${FILESDIR}"/${PN}-1.12-fix-LTO.patch
 	epatch_user
 
 	# Slightly messed build system YAY

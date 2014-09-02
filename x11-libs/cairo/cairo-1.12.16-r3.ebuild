@@ -110,8 +110,8 @@ src_prepare() {
 	# bug #507478, https://bugs.freedesktop.org/show_bug.cgi?id=77931
 	epatch "${FILESDIR}"/${PN}-1.12.16-all-clipped-3.patch
 
-	# allow the automagically injected -flto flag to be not injected
-	epatch "${FILESDIR}"/${PN}-1.12.16-lto-optional.patch
+	# Fix LTO instead of cutting it off.
+	epatch "${FILESDIR}"/${PN}-1.12-fix-LTO.patch
 
 	# tests and perf tools require X, bug #483574
 	if ! use X; then
