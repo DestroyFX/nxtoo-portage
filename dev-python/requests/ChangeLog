@@ -1,6 +1,20 @@
 # ChangeLog for dev-python/requests
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/requests/ChangeLog,v 1.69 2014/08/28 08:29:47 naota Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-python/requests/ChangeLog,v 1.72 2014/09/10 01:36:55 floppym Exp $
+
+*requests-2.4.1 (10 Sep 2014)
+
+  10 Sep 2014; Mike Gilbert <floppym@gentoo.org> +requests-2.4.1.ebuild:
+  Version bump, resolves bug 522466.
+
+*requests-2.4.0 (09 Sep 2014)
+
+  09 Sep 2014; Ian Delaney <idella4@gentoo.org>
+  +files/requests-2.4.0-system-cacerts.patch, +requests-2.4.0.ebuild:
+  bump
+
+  06 Sep 2014; Ian Delaney <idella4@gentoo.org> requests-2.3.0.ebuild:
+  re-add py3.2 to support reverse deps
 
   28 Aug 2014; Naohiro Aota <naota@gentoo.org> requests-2.3.0.ebuild:
   Add ~x86-fbsd. #509628
