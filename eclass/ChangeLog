@@ -1,6 +1,22 @@
 # ChangeLog for eclass directory
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/ChangeLog,v 1.1367 2014/09/11 00:08:57 pesa Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/ChangeLog,v 1.1372 2014/09/17 10:21:37 jlec Exp $
+
+  17 Sep 2014; Justin Lecher <jlec@gentoo.org> cuda.eclass:
+  nvcc always needs tp know the compiler location
+
+  16 Sep 2014; Johannes Huber <johu@gentoo.org> kde4-base.eclass:
+  Add kde-workspace 4.11.12 SRC_URI, remove obsolete.
+
+  16 Sep 2014; Davide Pesavento <pesa@gentoo.org> qt5-build.eclass:
+  Exclude installed_cmake tests as well.
+
+  15 Sep 2014; Justin Lecher <jlec@gentoo.org> intel-sdp.eclass:
+  Allow RPMS specified as array
+
+  11 Sep 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +mozconfig-v4.31.eclass, -mozconfig-v4.eclass:
+  dropped unused mozconfig-v4 and added new mozconfig-v4.31 eclasses
 
   11 Sep 2014; Davide Pesavento <pesa@gentoo.org> qt5-build.eclass:
   Restrict tests on 5.3.x (except live).

@@ -1,10 +1,29 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/base/package.use.mask,v 1.596 2014/09/07 13:22:31 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/base/package.use.mask,v 1.605 2014/09/19 16:51:09 ssuominen Exp $
 
 # This file requires >=portage-2.1.1
 # New entries go on top.
 #
+
+# Samuli Suominen <ssuominen@gentoo.org> (19 Sep 2014)
+# No support non-systemd systems with >=sys-power/upower-0.99 and sys-power/pm-utils
+# Mask USE="upower" to prevent forced switch to sys-power/upower-pm-utils
+>=net-im/telepathy-mission-control-5.16 upower
+
+# Michał Górny <mgorny@gentoo.org> (15 Sep 2014)
+# Unsuccessful version bump of net-libs/libzrtpcpp, seems to cause
+# undefined references few layers deeper. Need further investigation,
+# if anybody cares.
+net-libs/ortp zrtp
+
+# Johannes Huber <johu@gentoo.org> (14 Sep 2014)
+# Masked until dev-libs/extra-cmake-modules is in tree.
+dev-libs/libattica qt5
+
+# Johannes Huber <johu@gentoo.org> (12 Sep 2014)
+# Masked until all dependencies are packaged.
+media-sound/tomahawk qt5
 
 # Michał Górny <mgorny@gentoo.org> (06 Sep 2014)
 # Mask the removed/deprecated flags for old ebuilds that do not use
@@ -60,10 +79,6 @@ www-servers/mongoose lua
 # See bugs #507808, #507810 and #507814
 sys-devel/autoconf	multislot
 sys-devel/gcc		multislot
-
-# Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org> (05 Jun 2014)
-# Needs libepoxy keywording, bug #510940
-x11-base/xorg-server glamor
 
 # Manuel Rüger <mrueg@gentoo.org> (05 Jun 2014)
 # Fails to build with net-libs/libotr-4.0.0
@@ -529,6 +544,7 @@ app-arch/libarchive e2fsprogs
 # it's masked here and unmasked in individual profiles (bug #396313).
 net-libs/webkit-gtk jit
 www-client/epiphany jit
+www-client/midori jit
 
 # Mike Frysinger <vapier@gentoo.org> (06 Dec 2011)
 # No one should be mucking with libssp unless they really know what they're
@@ -601,12 +617,6 @@ net-dns/pdnsd isdn urandom
 # Raúl Porcel <armin76@gentoo.org> (13 Feb 2011)
 # Masked until devs know how to use repoman
 <media-video/mplayer-9999 bluray
-
-# Robin H. Johnson <robbat2@gentoo.org> (28 Nov 2010)
-# bug 344885: USE=debug causes compile to fail presently.
-=dev-db/mysql-5.1.51* debug
-=dev-db/mysql-5.1.52* debug
-=dev-db/mysql-5.1.53* debug
 
 # Justin Lecher <jlec@gentoo.org> (17 Nov 2010)
 # Upstream didn't release patches for aria yet

@@ -1,5 +1,5 @@
 ####################################################################
-# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.16027 2014/09/11 14:24:03 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.16046 2014/09/18 06:39:26 dilfridge Exp $
 #
 # When you add an entry to the top of this file, add your name, the date, and
 # an explanation of why something is getting masked. Please be extremely
@@ -30,51 +30,84 @@
 
 #--- END OF EXAMPLES ---
 
+# Michael Orlitzky <mjo@gentoo.org> (16 Sep 2014)
+# Superseded by app-text/dos2unix, use that instead.
+# Masked for removal in 30 days (bug #522804).
+app-text/unix2dos
+
+# Michał Górny <mgorny@gentoo.org> (15 Sep 2014)
+# Causes undefined references few layers down (in mediastreamer),
+# someone needs to investigate.
+>=net-libs/libzrtpcpp-4
+
+# Dion Moult <moult@gentoo.org> (15 Sep 2014)
+# Ancient and unmaintained (bug #515028)
+# Masked for removal in 30 days
+net-misc/netcomics-cvs
+
+# Dion Moult <moult@gentoo.org> (15 Sep 2014)
+# It has no support for new API since 2012. A good replacement of this package,
+# app-text/pastebinit, is already stabilized (bug #434366)
+# Masked for removal in 30 days
+app-text/pastebin
+
+# Maxim Koltsov <maksbotan@gentoo.org> (12 Sep 2014)
+# Requires masked libav-10
+# If you use media-video/ffmpeg, it's absolutely safe to unmask this package.
+# Sorry for the inconvenience!
+#
+# Developers: Please DO NOT REMOVE this mask, which was discussed and
+# agreed on #gentoo-dev by mgorny, patrick and others
+=media-video/mpv-0.4*
+=media-video/mpv-0.5*
+
 # Patrick Lauer <patrick@gentoo.org> (11 Sep 2014)
 # Unsatisfiable dependencies after firebird removal
-# Should be treecleaned #522344 #522348
+# Should be treecleaned #522344 #522348 #522346
 dev-python/kinterbasdb
 dev-libs/ibpp
+dev-php/PEAR-MDB2_Driver_ibase
 
 # Davide Pesavento <pesa@gentoo.org> (11 Sep 2014)
 # Mask Qt 5.3.x for wider testing to ensure that it does
 # not break or conflict with other packages (bug #454132)
-=dev-qt/assistant-5.3.1*
-=dev-qt/designer-5.3.1*
-=dev-qt/linguist-5.3.1*
-=dev-qt/linguist-tools-5.3.1*
-=dev-qt/pixeltool-5.3.1*
-=dev-qt/qdbus-5.3.1*
-=dev-qt/qdbusviewer-5.3.1*
-=dev-qt/qdoc-5.3.1*
-=dev-qt/qtconcurrent-5.3.1*
-=dev-qt/qtcore-5.3.1*
-=dev-qt/qtdbus-5.3.1*
-=dev-qt/qtdeclarative-5.3.1*
-=dev-qt/qtdiag-5.3.1*
-=dev-qt/qtgraphicaleffects-5.3.1*
-=dev-qt/qtgui-5.3.1*
-=dev-qt/qthelp-5.3.1*
-=dev-qt/qtimageformats-5.3.1*
-=dev-qt/qtmultimedia-5.3.1*
-=dev-qt/qtnetwork-5.3.1*
-=dev-qt/qtopengl-5.3.1*
-=dev-qt/qtpaths-5.3.1*
-=dev-qt/qtprintsupport-5.3.1*
-=dev-qt/qtquick1-5.3.1*
-=dev-qt/qtquickcontrols-5.3.1*
-=dev-qt/qtscript-5.3.1*
-=dev-qt/qtserialport-5.3.1*
-=dev-qt/qtsql-5.3.1*
-=dev-qt/qtsvg-5.3.1*
-=dev-qt/qttest-5.3.1*
-=dev-qt/qttranslations-5.3.1*
-=dev-qt/qtwebkit-5.3.1*
-=dev-qt/qtwebsockets-5.3.1*
-=dev-qt/qtwidgets-5.3.1*
-=dev-qt/qtx11extras-5.3.1*
-=dev-qt/qtxml-5.3.1*
-=dev-qt/qtxmlpatterns-5.3.1*
+=dev-qt/assistant-5.3.2*
+=dev-qt/designer-5.3.2*
+=dev-qt/linguist-5.3.2*
+=dev-qt/linguist-tools-5.3.2*
+=dev-qt/pixeltool-5.3.2*
+=dev-qt/qdbus-5.3.2*
+=dev-qt/qdbusviewer-5.3.2*
+=dev-qt/qdoc-5.3.2*
+=dev-qt/qtconcurrent-5.3.2*
+=dev-qt/qtcore-5.3.2*
+=dev-qt/qtdbus-5.3.2*
+=dev-qt/qtdeclarative-5.3.2*
+=dev-qt/qtdiag-5.3.2*
+=dev-qt/qtgraphicaleffects-5.3.2*
+=dev-qt/qtgui-5.3.2*
+=dev-qt/qthelp-5.3.2*
+=dev-qt/qtimageformats-5.3.2*
+=dev-qt/qtmultimedia-5.3.2*
+=dev-qt/qtnetwork-5.3.2*
+=dev-qt/qtopengl-5.3.2*
+=dev-qt/qtpaths-5.3.2*
+=dev-qt/qtprintsupport-5.3.2*
+=dev-qt/qtquick1-5.3.2*
+=dev-qt/qtquickcontrols-5.3.2*
+=dev-qt/qtscript-5.3.2*
+=dev-qt/qtserialport-5.3.2*
+=dev-qt/qtsql-5.3.2*
+=dev-qt/qtsvg-5.3.2*
+=dev-qt/qttest-5.3.2*
+=dev-qt/qttranslations-5.3.2*
+=dev-qt/qtwebkit-5.3.2*
+=dev-qt/qtwebsockets-5.3.2*
+=dev-qt/qtwidgets-5.3.2*
+=dev-qt/qtx11extras-5.3.2*
+=dev-qt/qtxml-5.3.2*
+=dev-qt/qtxmlpatterns-5.3.2*
+www-client/otter
 
 # Ulrich Müller <ulm@gentoo.org> (10 Sep 2014)
 # Multiple security vulnerabilities, bug #510960.
@@ -92,12 +125,6 @@ app-doc/djbdns-man
 # Dead upstream
 # Masked for removal in 30 days, bug #355797
 x11-plugins/pidgin-facebookchat
-
-# Michał Górny <mgorny@gentoo.org> (05 Sep 2014)
-# New version is built using C++11, and reverse dependencies may
-# require being switched to C++11 as well. Mask for testing.
-~sys-devel/clang-3.5.0
-~sys-devel/llvm-3.5.0
 
 # Sergey Popov <pinkbyte@gentoo.org> (04 Sep 2014)
 # Security mask, wrt bugs #488212, #498164, #500260,
@@ -235,10 +262,6 @@ sys-apps/usleep
 # Masked due to upstream QA issues.
 =dev-perl/Alien-SDL-1.444.0
 
-# Johannes Huber <johu@gentoo.org> (27 Jul 2014)
-# Masked for testing.
->=dev-util/cmake-3.0.0
-
 # Patrick Lauer <patrick@gentoo.org> (25 Jul 2014)
 # Upstream has declared it EOL, please migrate to
 # newer versions
@@ -371,11 +394,14 @@ dev-java/ibm-jdk-bin:1.5
 =virtual/perl-Digest-SHA-5.880.0
 =virtual/perl-Encode-2.600.0
 =virtual/perl-Exporter-5.700.0
+=virtual/perl-Exporter-5.710.0
 =virtual/perl-ExtUtils-CBuilder-0.280.216
+=virtual/perl-ExtUtils-CBuilder-0.280.217
 =virtual/perl-ExtUtils-Install-1.670.0
 =virtual/perl-ExtUtils-MakeMaker-6.980.0
 =virtual/perl-ExtUtils-ParseXS-3.240.0
 =virtual/perl-File-Spec-3.470.0
+=virtual/perl-File-Spec-3.480.0
 =virtual/perl-Filter-Simple-0.910.0
 =virtual/perl-HTTP-Tiny-0.43.0
 =virtual/perl-IO-1.310.0
@@ -386,6 +412,7 @@ dev-java/ibm-jdk-bin:1.5
 =virtual/perl-Math-BigRat-0.260.600
 =virtual/perl-Module-Build-0.420.500
 =virtual/perl-Module-CoreList-3.100.0
+=virtual/perl-Module-CoreList-5.20.1
 =virtual/perl-Module-Load-0.320.0
 =virtual/perl-Module-Load-Conditional-0.620.0
 =virtual/perl-Module-Metadata-1.0.19
@@ -414,6 +441,7 @@ dev-java/ibm-jdk-bin:1.5
 =virtual/perl-Net-Ping-2.430.0
 =virtual/perl-threads-1.930.0
 =virtual/perl-threads-shared-1.460.0
+=virtual/perl-version-0.990.900
 
 # Ryan Hill <rhill@gentoo.org> (22 May 2014)
 # Big API break.  Masked until something needs it.
@@ -499,6 +527,7 @@ sys-fs/rdiff-backup-fs
 # Current stable for upstream, pending a tinderbox run.
 # Note: mask restored because of #509294, #519258.
 =media-video/libav-10*
+=media-video/libav-11*
 
 # Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org> (26 Mar 2014)
 # Affected by multiple vulnerabilities, #445916, #471098 and #472280
@@ -603,7 +632,7 @@ games-emulation/m64py
 >media-fonts/roboto-9999
 
 # Lars Wendler <polynomial-c@gentoo.org> (28 Oct 2013)
-# Masked alpha releases for testing.
+# Masked alpha/beta releases for testing.
 =app-arch/xz-utils-5.1*
 
 # Tiziano Müller <dev-zero@gentoo.org> (24 Oct 2013)
@@ -834,11 +863,6 @@ kde-misc/kgtk
 # Masked for testing since this is known to break nearly
 # every reverse dependency wrt bug 407091
 >=dev-lang/lua-5.2.0
-
-# Jeroen Roovers <jer@gentoo.org> (27 Mar 2012)
-# Opera Next and Opera snapshots are unsupported and eternally unstable.
-# <http://my.opera.com/desktopteam/blog>
-www-client/opera-next
 
 # Diego E. Pettenò <flameeyes@gentoo.org> (30 Oct 2011)
 # Working on more reliable versioning, consider experimental for now.
