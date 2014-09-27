@@ -3,8 +3,12 @@
 EAPI="4-python"
 PYTHON_MULTIPLE_ABIS="1"
 PYTHON_RESTRICTED_ABIS="2.5 *-jython 2.7-pypy-1.9"
-
 inherit eutils python
+PYTHON_COMPAT=(
+	pypy2_0
+	python3_2 python3_3 python3_4
+	python2_6 python2_7
+)
 
 DESCRIPTION="Portage is the package management and distribution system for Gentoo"
 HOMEPAGE="http://www.gentoo.org/proj/en/portage/index.xml"
@@ -12,6 +16,11 @@ LICENSE="GPL-2"
 KEYWORDS="*"
 SLOT="0"
 IUSE="build doc epydoc +ipc linguas_pl linguas_ru pypy2_0 python2 python3 selinux xattr"
+for _pyimpl in ${PYTHON_COMPAT[@]} ; do
+	IUSE+=" python_targets_${_pyimpl}"
+done
+unset _pyimpl
+
 GITHUB_REPO="portage-funtoo"
 GITHUB_USER="DestroyFX"
 GITHUB_TAG="nxtoo-${PVR}"
@@ -23,11 +32,19 @@ python_dep_ssl="python3? ( =dev-lang/python-3*[ssl] )
 	!pypy2_0? ( !python2? ( !python3? (
 		|| ( >=dev-lang/python-2.7[ssl] dev-lang/python:2.6[threads,ssl] )
 	) ) )
-	pypy2_0? ( !python2? ( !python3? ( dev-python/pypy:2.0[bzip2,ssl] ) ) )
+	pypy2_0? ( !python2? ( !python3? ( virtual/pypy:2.0[bzip2] ) ) )
 	python2? ( !python3? ( || ( dev-lang/python:2.7[ssl] dev-lang/python:2.6[ssl,threads] ) ) )"
 python_dep="${python_dep_ssl//\[ssl\]}"
 python_dep="${python_dep//,ssl}"
 python_dep="${python_dep//ssl,}"
+python_dep="${python_dep}
+	python_targets_pypy2_0? ( virtual/pypy:2.0 )
+	python_targets_python2_6? ( dev-lang/python:2.6 )
+	python_targets_python2_7? ( dev-lang/python:2.7 )
+	python_targets_python3_2? ( dev-lang/python:3.2 )
+	python_targets_python3_3? ( dev-lang/python:3.3 )
+	python_targets_python3_4? ( dev-lang/python:3.4 )
+"
 
 # The pysqlite blocker is for bug #282760.
 # make-3.82 is for bug #455858
