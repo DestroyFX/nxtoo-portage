@@ -185,10 +185,9 @@ virtual/ruby-threads:jruby
 # experimental features and accept a more unstable release.
 >=www-client/chromium-39
 
-# Brian Dolbec <dolsen@gentoo.org> (1 sept 2014)
-# Mask NON-MAINTAINER commit, due lack of testing portage team, releng
-# Mask for review
-=sys-apps/portage-2.2.12-r1
+# Simon-Pierre Dubé <shaedge@gmail.com> (27 sept 2014)
+# Mask previous packages to use nxtoo-portage by default.
+<sys-apps/portage-2.3.6-r4
 
 # Sergey Popov <pinkbyte@gentoo.org> (28 Aug 2014)
 # Security mask, wrt bug #519650
