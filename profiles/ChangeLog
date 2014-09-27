@@ -1,10 +1,127 @@
 # ChangeLog for profile directory
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/ChangeLog,v 1.9367 2014/09/11 14:24:03 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/ChangeLog,v 1.9402 2014/09/26 23:48:42 pesa Exp $
 #
 # This ChangeLog should include records for all changes in profiles directory.
 # Only typo fixes which don't affect portage/repoman behaviour could be avoided
 # here. If in doubt put a record here!
+
+  26 Sep 2014; Davide Pesavento <pesa@gentoo.org> package.mask:
+  Add qtsensors to the Qt5 mask.
+
+  26 Sep 2014; Joerg Bornkessel <hd_brummy@gentoo.org> package.mask:
+  removed pmask =media-tv/gentoo-vdr-scripts-2.5_rc5
+  =media-plugins/vdr-permashift-1.0.0
+  =media-video/vdr-2.0.6
+
+  26 Sep 2014; Joerg Bornkessel <hd_brummy@gentoo.org> package.mask:
+  mask media-video/vdr-2.0.6 temp
+
+  26 Sep 2014; Joerg Bornkessel <hd_brummy@gentoo.org> package.mask:
+  masked media-plugins/vdr-permashift-1.0.0, need new patch in media-video/vdr
+
+  23 Sep 2014; Andreas K. Huettel <dilfridge@gentoo.org> package.mask:
+  Unmask Perl 5.20 and related
+
+  23 Sep 2014; Joerg Bornkessel <hd_brummy@gentoo.org> package.mask:
+  =media-tv/gentoo-vdr-scripts-2.5_rc5 temp masked
+
+  22 Sep 2014; Julian Ospald <hasufell@gentoo.org> license_groups:
+  clean up obsolete ArxFatalis-EULA-GOG entry
+
+  22 Sep 2014; Julian Ospald <hasufell@gentoo.org> license_groups:
+  add GOG-EULA to EULA license group
+
+  21 Sep 2014; Julian Ospald <hasufell@gentoo.org>
+  hardened/linux/amd64/no-multilib/package.mask:
+  mask games-rpg/wasteland2 for no-multilib
+
+  21 Sep 2014; Brian Evans <grknight@gentoo.org> package.mask:
+  Remove obsolete mask of virtual/mysql-5.{2,3} and dev-db/mariadb-5.{2,3}*
+
+  19 Sep 2014; Andreas K. Huettel <dilfridge@gentoo.org> package.mask:
+  Remove obsolete mask of www-apps/swish-e
+
+  19 Sep 2014; Michael Palimaka <kensington@gentoo.org> updates/1Q-2014:
+  Fix slotmove - the old slot was 0 and there never was a 2.
+
+  19 Sep 2014; Patrick Lauer <patrick@gentoo.org> thirdpartymirrors:
+  Add metacpan mirror to cpan thirdpartymirrors
+
+  18 Sep 2014; Andreas K. Huettel <dilfridge@gentoo.org> package.mask:
+  Remove LO-4.3 mask
+
+  18 Sep 2014; Ulrich Müller <ulm@gentoo.org> package.mask:
+  Temporarily mask >=dev-libs/lib{ixion,orcus}-0.7, pending libreoffice update.
+
+  17 Sep 2014; Bernard Cafarelli <voyageur@gentoo.org> package.mask:
+  Unmask llvm/clang 3.5
+
+  17 Sep 2014; Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org>
+  targets/desktop/package.use:
+  Disable glamor for xf86-video-intel in the desktop profile
+
+  16 Sep 2014; Ulrich Müller <ulm@gentoo.org>
+  arch/amd64/no-multilib/package.mask, arch/amd64/package.use.stable.mask,
+  default/linux/uclibc/amd64/package.mask, features/64bit-native/package.mask,
+  hardened/linux/amd64/no-multilib/package.mask,
+  hardened/linux/musl/amd64/package.mask:
+  Remove obsolete masks for app-emulation/emul-linux-x86-glibc-errno-compat and
+  app-emulation/emul-linux-x86-compat, packages removed or slated for removal.
+
+  16 Sep 2014; Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org>
+  targets/desktop/make.defaults:
+  Enable glamor by default in desktop profiles
+
+  16 Sep 2014; Michael Orlitzky <mjo@gentoo.org> package.mask:
+  Mask app-text/unix2dos for removal in 30 days.
+
+  16 Sep 2014; Davide Pesavento <pesa@gentoo.org> package.mask:
+  Update Qt 5.3 mask.
+
+  16 Sep 2014; Samuli Suominen <ssuominen@gentoo.org> desc/xfce_plugins.desc:
+  New description for xfce_plugins_power to replace xfce_plugins_battery and
+  xfce_plugins_brightness
+
+  16 Sep 2014; Andreas K. Huettel <dilfridge@gentoo.org> package.mask:
+  Mask LibreOffice 4.3 for an initial short testing period
+
+  16 Sep 2014; Andreas K. Huettel <dilfridge@gentoo.org> package.mask:
+  Add virtual versions from Perl 5.20.1 to Perl 5.20 mask
+
+  15 Sep 2014; Johannes Huber <johu@gentoo.org> package.mask:
+  Unmask >=dev-util/cmake-3.0.0 for further testing.
+
+  15 Sep 2014; Michał Górny <mgorny@gentoo.org> package.mask:
+  Mask zrtpcpp-4 since it is screwed up.
+
+  15 Sep 2014; Lars Wendler <polynomial-c@gentoo.org> package.mask:
+  Adjusted wording in comment for xz-utils mask.
+
+  15 Sep 2014; Jeroen Roovers <jer@gentoo.org> package.mask:
+  Remove www-client/opera-next mask.
+
+  14 Sep 2014; Dion Moult <moult@gentoo.org> package.mask:
+  net-misc/netcomics-cvs added to package.mask
+
+  14 Sep 2014; Dion Moult <moult@gentoo.org> package.mask:
+  Add app-text/pastebin to package mask
+
+  14 Sep 2014; Maxim Koltsov <maksbotan@gentoo.org> package.mask:
+  Improve mpv mask message
+
+  14 Sep 2014; Pacho Ramos <pacho@gentoo.org> package.mask:
+  Mask dev-php/PEAR-MDB2_Driver_ibase (#522346)
+
+  13 Sep 2014; Jeroen Roovers <jer@gentoo.org> package.mask:
+  Add www-client/otter to dev-qt/*:5 mask.
+
+  12 Sep 2014; Maxim Koltsov <maksbotan@gentoo.org> package.mask:
+  Mask mpv-0.{4,5} again
+
+  11 Sep 2014; Michał Górny <mgorny@gentoo.org> desc/python_targets.desc:
+  Restore python2_6 and pypy2_0 in desc/, since they are still used by old
+  versions of sys-apps/portage.
 
   11 Sep 2014; Michał Górny <mgorny@gentoo.org> package.mask:
   Mask new version of gentoo-bashcomp aside bash-completion-2.1-r90.

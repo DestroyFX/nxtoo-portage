@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/qt5-build.eclass,v 1.5 2014/09/11 00:08:57 pesa Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/qt5-build.eclass,v 1.7 2014/09/22 00:03:25 pesa Exp $
 
 # @ECLASS: qt5-build.eclass
 # @MAINTAINER:
@@ -22,7 +22,7 @@ inherit eutils flag-o-matic multilib toolchain-funcs virtualx
 QT5_MINOR_VERSION=${PV#*.}
 QT5_MINOR_VERSION=${QT5_MINOR_VERSION%%.*}
 
-HOMEPAGE="https://qt-project.org/"
+HOMEPAGE="https://www.qt.io/ https://qt-project.org/"
 if [[ ${QT5_MINOR_VERSION} -ge 4 ]]; then
 	LICENSE="|| ( LGPL-2.1 LGPL-3 )"
 else
@@ -58,7 +58,7 @@ case ${PV} in
 		# official stable releases
 		QT5_BUILD_TYPE="release"
 		MY_P=${QT5_MODULE}-opensource-src-${PV}
-		SRC_URI="http://download.qt-project.org/official_releases/qt/${PV%.*}/${PV}/submodules/${MY_P}.tar.xz"
+		SRC_URI="http://download.qt-project.org/archive/qt/${PV%.*}/${PV}/submodules/${MY_P}.tar.xz"
 		S=${WORKDIR}/${MY_P}
 		;;
 esac
@@ -225,8 +225,8 @@ qt5-build_src_compile() {
 qt5-build_src_test() {
 	echo ">>> Test phase [QtTest]: ${CATEGORY}/${PF}"
 
-	# '-after SUBDIRS-=cmake' disables broken tests - bug #474004
-	qt5_foreach_target_subdir qt5_qmake -after SUBDIRS-=cmake
+	# '-after SUBDIRS-=...' disables broken cmake tests (bug 474004)
+	qt5_foreach_target_subdir qt5_qmake -after SUBDIRS-=cmake SUBDIRS-=installed_cmake
 	qt5_foreach_target_subdir emake
 
 	# create a custom testrunner script that correctly sets
