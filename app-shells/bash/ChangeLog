@@ -1,6 +1,213 @@
 # ChangeLog for app-shells/bash
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/app-shells/bash/ChangeLog,v 1.390 2014/09/27 05:12:25 polynomial-c Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-shells/bash/ChangeLog,v 1.425 2014/10/20 05:14:35 vapier Exp $
+
+  20 Oct 2014; Mike Frysinger <vapier@gentoo.org> bash-4.3_p30.ebuild:
+  Fix install of examples #525930 by Erik Zeek.
+
+  20 Oct 2014; Mike Frysinger <vapier@gentoo.org> -files/bash-3.0-configs.patch,
+  bash-3.0_p22.ebuild:
+  Drop old mail config settings.
+
+  19 Oct 2014; Mike Frysinger <vapier@gentoo.org> bash-4.3_p30.ebuild:
+  Move bash-4.3 into ~arch.
+
+*bash-3.0_p22 (19 Oct 2014)
+*bash-2.05b_p13 (19 Oct 2014)
+
+  19 Oct 2014; Mike Frysinger <vapier@gentoo.org> +bash-2.05b_p13.ebuild,
+  +bash-3.0_p22.ebuild, bash-3.1_p23.ebuild, +files/bash-2.05b-destdir.patch,
+  +files/bash-2.05b-empty-herestring.patch,
+  +files/bash-2.05b-fix-job-warning.patch, +files/bash-2.05b-jobs.patch,
+  +files/bash-2.05b-protos.patch, +files/bash-2.05b-rbash.patch,
+  +files/bash-3.0-afs.patch, +files/bash-3.0-configs.patch,
+  +files/bash-3.0-crash.patch, +files/bash-3.0-darwin-conn.patch,
+  +files/bash-3.0-histtimeformat.patch, +files/bash-3.0-jobs.patch,
+  +files/bash-3.0-locale.patch, +files/bash-3.0-manpage.patch,
+  +files/bash-3.0-multibyteifs.patch, +files/bash-3.0-pgrp-pipe-fix.patch,
+  +files/bash-3.0-protos.patch, +files/bash-3.0-pwd.patch,
+  +files/bash-3.0-rbash.patch, +files/bash-3.0-read-builtin-pipe.patch,
+  +files/bash-3.0-read-e-segfault.patch, +files/bash-3.0-strnlen.patch,
+  +files/bash-3.0-subshell.patch, +files/bash-3.0-ulimit.patch,
+  +files/bash-3.0-volatile-command.patch:
+  Restore SLOTed bash-2.05b and bash-3.0 for devs.
+
+  19 Oct 2014; Mike Frysinger <vapier@gentoo.org>
+  +files/bash-2.05b-parallel-build.patch, +files/bash-3.1-protos.patch,
+  -files/bash-3.1-gentoo.patch, -files/bash-3.2-parallel-build.patch,
+  bash-3.1_p23.ebuild, bash-3.2_p57.ebuild, files/bash-3.2-protos.patch,
+  bash-4.0_p44.ebuild:
+  Update prototype headers, drop Mandrake/readline patches that are not needed,
+  and pull back in the old version.h parallel build fix.
+
+  08 Oct 2014; Lars Wendler <polynomial-c@gentoo.org> -bash-3.1_p21.ebuild,
+  -bash-3.1_p22.ebuild, -bash-3.2_p55.ebuild, -bash-3.2_p56.ebuild,
+  -bash-4.0_p42.ebuild, -bash-4.0_p43.ebuild, -bash-4.1_p15.ebuild,
+  -bash-4.1_p16.ebuild, -bash-4.2_p51.ebuild, -bash-4.2_p52.ebuild:
+  Removed vulnerable versions.
+
+  08 Oct 2014; Raúl Porcel <armin76@gentoo.org> bash-3.1_p22.ebuild,
+  bash-3.1_p23.ebuild, bash-3.2_p56.ebuild, bash-3.2_p57.ebuild,
+  bash-4.0_p43.ebuild, bash-4.0_p44.ebuild, bash-4.1_p16.ebuild,
+  bash-4.1_p17.ebuild, bash-4.2_p52.ebuild, bash-4.2_p53.ebuild:
+  arm64/m68k/s390/sh stable
+
+  06 Oct 2014; Agostino Sarubbo <ago@gentoo.org> bash-3.1_p23.ebuild,
+  bash-3.2_p57.ebuild, bash-4.0_p44.ebuild, bash-4.1_p17.ebuild,
+  bash-4.2_p53.ebuild:
+  Stable for alpha/amd64/arm/ia64/ppc/ppc64/sparc/sh/x86 wrt the security bug
+  #524256
+
+  06 Oct 2014; Jeroen Roovers <jer@gentoo.org> bash-3.1_p23.ebuild,
+  bash-3.2_p57.ebuild, bash-4.0_p44.ebuild, bash-4.1_p17.ebuild,
+  bash-4.2_p53.ebuild:
+  Stable for HPPA (bug #524256).
+
+*bash-4.3_p30 (06 Oct 2014)
+*bash-4.2_p53 (06 Oct 2014)
+*bash-4.1_p17 (06 Oct 2014)
+*bash-4.0_p44 (06 Oct 2014)
+*bash-3.2_p57 (06 Oct 2014)
+*bash-3.1_p23 (06 Oct 2014)
+
+  06 Oct 2014; Lars Wendler <polynomial-c@gentoo.org> +bash-3.1_p23.ebuild,
+  +bash-3.2_p57.ebuild, +bash-4.0_p44.ebuild, +bash-4.1_p17.ebuild,
+  +bash-4.2_p53.ebuild, -bash-4.3_p29.ebuild, +bash-4.3_p30.ebuild:
+  Security bump (bug #524256). Should fix CVE-2014-6278.
+
+  04 Oct 2014; Agostino Sarubbo <ago@gentoo.org> bash-3.1_p22.ebuild,
+  bash-3.2_p56.ebuild, bash-4.0_p43.ebuild, bash-4.1_p16.ebuild,
+  bash-4.2_p52.ebuild:
+  Stable for amd64/arm/ia64/ppc/ppc64/sparc/sh/x86 wrt the security bug #524256
+
+  03 Oct 2014; Jeroen Roovers <jer@gentoo.org> bash-3.1_p22.ebuild,
+  bash-3.2_p56.ebuild, bash-4.0_p43.ebuild, bash-4.1_p16.ebuild,
+  bash-4.2_p52.ebuild:
+  Stable for HPPA (bug #524256).
+
+  03 Oct 2014; Tobias Klausmann <klausman@gentoo.org> bash-3.1_p22.ebuild,
+  bash-3.2_p56.ebuild, bash-4.0_p43.ebuild, bash-4.1_p16.ebuild,
+  bash-4.2_p52.ebuild:
+  Stable on alpha for security bug 524256
+
+*bash-4.3_p29 (03 Oct 2014)
+*bash-4.2_p52 (03 Oct 2014)
+*bash-4.1_p16 (03 Oct 2014)
+*bash-4.0_p43 (03 Oct 2014)
+*bash-3.2_p56 (03 Oct 2014)
+*bash-3.1_p22 (03 Oct 2014)
+
+  03 Oct 2014; Lars Wendler <polynomial-c@gentoo.org> +bash-3.1_p22.ebuild,
+  +bash-3.2_p56.ebuild, +bash-4.0_p43.ebuild, +bash-4.1_p16.ebuild,
+  +bash-4.2_p52.ebuild, -bash-4.3_p28.ebuild, +bash-4.3_p29.ebuild:
+  Security bump (bug #524256). Should fix CVE-2014-6277.
+
+  03 Oct 2014; Lars Wendler <polynomial-c@gentoo.org> -bash-3.1_p20.ebuild,
+  -bash-3.2_p54.ebuild, -bash-4.0_p41.ebuild, -bash-4.1_p14.ebuild,
+  -bash-4.2_p50.ebuild:
+  Removed old versions.
+
+  03 Oct 2014; Raúl Porcel <armin76@gentoo.org> bash-3.1_p21.ebuild,
+  bash-3.2_p55.ebuild, bash-4.0_p42.ebuild:
+  arm64/m68k/s390 stable
+
+  02 Oct 2014; Agostino Sarubbo <ago@gentoo.org> bash-3.1_p21.ebuild,
+  bash-3.2_p55.ebuild, bash-4.0_p42.ebuild, bash-4.1_p15.ebuild,
+  bash-4.2_p51.ebuild:
+  Stable for alpha/amd64/arm/ia64/ppc/ppc64/sparc/sh/x86 wrt the security bug
+  #523742
+
+  02 Oct 2014; Raúl Porcel <armin76@gentoo.org> bash-4.1_p15.ebuild:
+  s390 stable
+
+  02 Oct 2014; Raúl Porcel <armin76@gentoo.org> bash-4.1_p15.ebuild,
+  bash-4.2_p51.ebuild:
+  arm64/m68k stable
+
+  02 Oct 2014; Jeroen Roovers <jer@gentoo.org> bash-3.1_p21.ebuild,
+  bash-3.2_p55.ebuild, bash-4.0_p42.ebuild, bash-4.1_p15.ebuild,
+  bash-4.2_p51.ebuild:
+  Stable for HPPA (bug #523742).
+
+*bash-4.3_p28 (01 Oct 2014)
+*bash-4.2_p51 (01 Oct 2014)
+*bash-4.1_p15 (01 Oct 2014)
+*bash-4.0_p42 (01 Oct 2014)
+*bash-3.2_p55 (01 Oct 2014)
+*bash-3.1_p21 (01 Oct 2014)
+
+  01 Oct 2014; Lars Wendler <polynomial-c@gentoo.org> -bash-3.1_p19.ebuild,
+  +bash-3.1_p21.ebuild, -bash-3.2_p53.ebuild, +bash-3.2_p55.ebuild,
+  -bash-4.0_p40.ebuild, +bash-4.0_p42.ebuild, -bash-4.1_p13.ebuild,
+  -bash-4.1_p14-r1.ebuild, +bash-4.1_p15.ebuild, -bash-4.2_p49.ebuild,
+  -bash-4.2_p50-r1.ebuild, +bash-4.2_p51.ebuild, -bash-4.3_p27-r1.ebuild,
+  +bash-4.3_p28.ebuild, -files/bash-redir-stack-overflow.patch:
+  Finally the official patch to fix CVE-2014-7186 and CVE-2014-7187 is out (bug
+  #523742). Committed straight to stable where previous -r1 version was stable.
+
+  01 Oct 2014; Sergey Popov <pinkbyte@gentoo.org> bash-4.2_p50-r1.ebuild:
+  s390 stable, wrt bug #523742
+
+  01 Oct 2014; Agostino Sarubbo <ago@gentoo.org> bash-4.1_p14-r1.ebuild,
+  bash-4.2_p50-r1.ebuild:
+  Stable for alpha/arm/ia64/ppc/ppc64/sparc/sh/x86 wrt the security bug #523742
+
+  01 Oct 2014; Mikle Kolyada <zlogene@gentoo.org> bash-4.1_p14-r1.ebuild,
+  bash-4.2_p50-r1.ebuild:
+  amd64 stable wrt bug #523742
+
+  01 Oct 2014; Raúl Porcel <armin76@gentoo.org> bash-3.1_p20.ebuild,
+  bash-3.2_p54.ebuild, bash-4.0_p41.ebuild, bash-4.1_p14.ebuild,
+  bash-4.2_p50.ebuild:
+  arm64/m68k/s390/sh stable
+
+*bash-4.3_p27-r1 (30 Sep 2014)
+*bash-4.2_p50-r1 (30 Sep 2014)
+*bash-4.1_p14-r1 (30 Sep 2014)
+
+  30 Sep 2014; Lars Wendler <polynomial-c@gentoo.org> +bash-4.1_p14-r1.ebuild,
+  +bash-4.2_p50-r1.ebuild, -bash-4.3_p27.ebuild, +bash-4.3_p27-r1.ebuild,
+  +files/bash-redir-stack-overflow.patch:
+  Added an inofficial patch to finally fix CVE-2014-7186 and CVE-2014-7187 (bug
+  #523742).
+
+  29 Sep 2014; Jeroen Roovers <jer@gentoo.org> bash-3.1_p20.ebuild,
+  bash-3.2_p54.ebuild, bash-4.0_p41.ebuild, bash-4.1_p14.ebuild,
+  bash-4.2_p50.ebuild:
+  Stable for HPPA (bug #523742).
+
+  29 Sep 2014; Agostino Sarubbo <ago@gentoo.org> bash-3.1_p20.ebuild,
+  bash-3.2_p54.ebuild, bash-4.0_p41.ebuild, bash-4.1_p14.ebuild,
+  bash-4.2_p50.ebuild:
+  Stable for amd64/arm/ia64/ppc/ppc64/sparc/sh/x86 wrt the security bug #523742
+
+  29 Sep 2014; Tobias Klausmann <klausman@gentoo.org> bash-3.1_p20.ebuild:
+  Stable on alpha, bug 523742
+
+  29 Sep 2014; Tobias Klausmann <klausman@gentoo.org> bash-3.2_p54.ebuild:
+  Stable on alpha, bug 523742
+
+  29 Sep 2014; Tobias Klausmann <klausman@gentoo.org> bash-4.0_p41.ebuild:
+  Stable on alpha, bug 523742
+
+  29 Sep 2014; Tobias Klausmann <klausman@gentoo.org> bash-4.1_p14.ebuild:
+  Stable on alpha, bug 523742
+
+  29 Sep 2014; Tobias Klausmann <klausman@gentoo.org> bash-4.2_p50.ebuild:
+  Stable on alpha, bug 523742
+
+*bash-4.3_p27 (28 Sep 2014)
+*bash-4.2_p50 (28 Sep 2014)
+*bash-4.1_p14 (28 Sep 2014)
+*bash-4.0_p41 (28 Sep 2014)
+*bash-3.2_p54 (28 Sep 2014)
+*bash-3.1_p20 (28 Sep 2014)
+
+  28 Sep 2014; Lars Wendler <polynomial-c@gentoo.org> +bash-3.1_p20.ebuild,
+  +bash-3.2_p54.ebuild, +bash-4.0_p41.ebuild, +bash-4.1_p14.ebuild,
+  +bash-4.2_p50.ebuild, -bash-4.3_p26.ebuild, +bash-4.3_p27.ebuild:
+  Security bump. Another bunch of shellshock fixes. This time for
+  CVE-2014-7186, CVE-2014-7187 and CVE-2014-6277.
 
 *bash-4.3_p26 (27 Sep 2014)
 *bash-4.2_p49 (27 Sep 2014)

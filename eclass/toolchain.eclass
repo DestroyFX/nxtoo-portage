@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/toolchain.eclass,v 1.635 2014/08/05 01:41:01 floppym Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/toolchain.eclass,v 1.640 2014/10/20 17:16:45 vapier Exp $
 
 # Maintainer: Toolchain Ninjas <toolchain@gentoo.org>
 
@@ -77,17 +77,19 @@ GCCMICRO=$(get_version_component_range 3 ${GCC_PV})
 GCC_CONFIG_VER=${GCC_CONFIG_VER:-$(replace_version_separator 3 '-' ${GCC_PV})}
 
 # Pre-release support
-if [[ ${GCC_PV} != ${GCC_PV/_pre/-} ]] ; then
+if [[ ${GCC_PV} == *_pre* ]] ; then
 	PRERELEASE=${GCC_PV/_pre/-}
-fi
-
-# make _alpha and _beta ebuilds automatically use a snapshot
-if [[ ${GCC_PV} == *_alpha* ]] ; then
+elif [[ ${GCC_PV} == *_alpha* ]] ; then
 	SNAPSHOT=${GCC_BRANCH_VER}-${GCC_PV##*_alpha}
 elif [[ ${GCC_PV} == *_beta* ]] ; then
 	SNAPSHOT=${GCC_BRANCH_VER}-${GCC_PV##*_beta}
 elif [[ ${GCC_PV} == *_rc* ]] ; then
 	SNAPSHOT=${GCC_PV%_rc*}-RC-${GCC_PV##*_rc}
+fi
+
+if [[ ${SNAPSHOT} == 5.0.0-* ]] ; then
+	# The gcc-5 release has dropped the .0 for some reason.
+	SNAPSHOT=${SNAPSHOT/5.0.0/5}
 fi
 
 export GCC_FILESDIR=${GCC_FILESDIR:-${FILESDIR}}
@@ -116,11 +118,11 @@ STDCXX_INCDIR=${TOOLCHAIN_STDCXX_INCDIR:-${LIBPATH}/include/g++-v${GCC_BRANCH_VE
 #---->> SLOT+IUSE logic <<----
 
 IUSE="multislot regression-test vanilla"
-IUSE_DEF="nls nptl"
+IUSE_DEF=( nls nptl )
 
 if [[ ${PN} != "kgcc64" && ${PN} != gcc-* ]] ; then
 	IUSE+=" altivec"
-	IUSE_DEF+=" cxx fortran"
+	IUSE_DEF+=( cxx fortran )
 	[[ -n ${PIE_VER} ]] && IUSE+=" nopie"
 	[[ -n ${HTB_VER} ]] && IUSE+=" boundschecking"
 	[[ -n ${D_VER}   ]] && IUSE+=" d"
@@ -129,14 +131,15 @@ if [[ ${PN} != "kgcc64" && ${PN} != gcc-* ]] ; then
 	tc_version_is_at_least 4.0 && IUSE+=" objc-gc"
 	tc_version_is_between 4.0 4.9 && IUSE+=" mudflap"
 	tc_version_is_at_least 4.1 && IUSE+=" libssp objc++"
-	tc_version_is_at_least 4.2 && IUSE_DEF+=" openmp"
+	tc_version_is_at_least 4.2 && IUSE_DEF+=( openmp )
 	tc_version_is_at_least 4.3 && IUSE+=" fixed-point"
 	tc_version_is_at_least 4.6 && IUSE+=" graphite"
 	tc_version_is_at_least 4.7 && IUSE+=" go"
+	tc_version_is_at_least 4.8 && IUSE_DEF+=( sanitize )
 fi
 
-[[ ${EAPI:-0} != 0 ]] && IUSE_DEF="+${IUSE_DEF// / +}"
-IUSE+=" ${IUSE_DEF}"
+[[ ${EAPI:-0} != 0 ]] && IUSE_DEF=( "${IUSE_DEF[@]/#/+}" )
+IUSE+=" ${IUSE_DEF[*]}"
 
 # Support upgrade paths here or people get pissed
 if use multislot ; then
@@ -891,6 +894,16 @@ toolchain_src_configure() {
 		confgcc+=( --enable-libstdcxx-time )
 	fi
 
+	# Turn on the -Wl,--build-id flag by default for ELF targets. #525942
+	# This helps with locating debug files.
+	case ${CTARGET} in
+	*-linux-*|*-elf|*-eabi)
+		tc_version_is_at_least 4.5 && confgcc+=(
+			--enable-linker-build-id
+		)
+		;;
+	esac
+
 	# newer gcc versions like to bootstrap themselves with C++,
 	# so we need to manually disable it ourselves
 	if tc_version_is_between 4.7 4.8 && ! is_cxx ; then
@@ -1168,6 +1181,10 @@ toolchain_src_configure() {
 	elif tc_version_is_at_least 4.4 ; then
 		confgcc+=( --without-cloog )
 		confgcc+=( --without-ppl )
+	fi
+
+	if tc_version_is_at_least 4.8 ; then
+		confgcc+=( $(use_enable sanitize libsanitizer) )
 	fi
 
 	# Disable gcc info regeneration -- it ships with generated info pages

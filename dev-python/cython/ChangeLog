@@ -1,6 +1,41 @@
 # ChangeLog for dev-python/cython
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/cython/ChangeLog,v 1.121 2014/09/21 10:28:32 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-python/cython/ChangeLog,v 1.130 2014/10/18 18:25:55 radhermit Exp $
+
+*cython-0.21.1 (18 Oct 2014)
+
+  18 Oct 2014; Tim Harder <radhermit@gentoo.org> +cython-0.21.1.ebuild:
+  Version bump, drop python3_2 support.
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> cython-0.21.ebuild:
+  Stable for x86, wrt bug #524416
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> cython-0.21.ebuild:
+  Stable for ppc, wrt bug #524416
+
+  17 Oct 2014; Patrick Lauer <patrick@gentoo.org> metadata.xml:
+  Remove unneeded useflag description from metadata.xml
+
+  17 Oct 2014; Mike Gilbert <floppym@gentoo.org> -cython-0.16.ebuild,
+  -cython-0.17.1.ebuild, -cython-0.17.2.ebuild, -cython-0.17.4.ebuild,
+  -cython-0.18-r1.ebuild, -cython-0.18.ebuild, -cython-0.19.2.ebuild,
+  -cython-0.20.1.ebuild, -cython-0.20.2.ebuild, -cython-0.20.ebuild,
+  -files/0.15.1-test.patch, cython-0.19.1-r1.ebuild, cython-0.19.1.ebuild,
+  cython-0.21.ebuild:
+  Work around bug in 'local' built-in for bash-4.3, bug 525608. Remove old
+  ebuilds.
+
+  17 Oct 2014; Mike Gilbert <floppym@gentoo.org> cython-0.21.ebuild:
+  Depend on setuptools.
+
+  16 Oct 2014; Markus Meier <maekke@gentoo.org> cython-0.21.ebuild:
+  arm stable, bug #524416
+
+  09 Oct 2014; Agostino Sarubbo <ago@gentoo.org> cython-0.21.ebuild:
+  Stable for amd64, wrt bug #524416
+
+  04 Oct 2014; Jeroen Roovers <jer@gentoo.org> cython-0.21.ebuild:
+  Stable for HPPA (bug #524416).
 
   21 Sep 2014; Agostino Sarubbo <ago@gentoo.org> cython-0.19.1-r1.ebuild:
   Stable for sparc, wrt bug #517106

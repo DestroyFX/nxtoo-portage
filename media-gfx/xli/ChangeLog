@@ -1,6 +1,15 @@
 # ChangeLog for media-gfx/xli
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/xli/ChangeLog,v 1.60 2014/09/13 11:42:23 maekke Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-gfx/xli/ChangeLog,v 1.63 2014/10/10 10:52:48 ago Exp $
+
+  10 Oct 2014; Agostino Sarubbo <ago@gentoo.org> xli-1.17.0-r5.ebuild:
+  Stable for x86, wrt bug #518168
+
+  05 Oct 2014; Agostino Sarubbo <ago@gentoo.org> xli-1.17.0-r5.ebuild:
+  Stable for ppc, wrt bug #518168
+
+  28 Sep 2014; Chema Alonso <nimiux@gentoo.org> xli-1.17.0-r5.ebuild:
+  Stable for amd64 wrt bug #518168
 
   13 Sep 2014; Markus Meier <maekke@gentoo.org> xli-1.17.0-r5.ebuild:
   arm stable, bug #518168

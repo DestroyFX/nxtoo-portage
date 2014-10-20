@@ -1,6 +1,26 @@
 # ChangeLog for dev-python/py
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/py/ChangeLog,v 1.176 2014/08/14 05:00:01 idella4 Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-python/py/ChangeLog,v 1.182 2014/10/18 14:41:40 ago Exp $
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> py-1.4.25.ebuild:
+  Stable for x86, wrt bug #524416
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> py-1.4.25.ebuild:
+  Stable for ppc, wrt bug #524416
+
+  16 Oct 2014; Markus Meier <maekke@gentoo.org> py-1.4.25.ebuild:
+  arm stable, bug #524416
+
+  09 Oct 2014; Agostino Sarubbo <ago@gentoo.org> py-1.4.25.ebuild:
+  Stable for amd64, wrt bug #524416
+
+  04 Oct 2014; Jeroen Roovers <jer@gentoo.org> py-1.4.25.ebuild:
+  Stable for HPPA (bug #524416).
+
+*py-1.4.25 (27 Sep 2014)
+
+  27 Sep 2014; Tim Harder <radhermit@gentoo.org> +py-1.4.25.ebuild:
+  Version bump.
 
 *py-1.4.23 (14 Aug 2014)
 

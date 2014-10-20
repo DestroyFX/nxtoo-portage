@@ -1,6 +1,64 @@
 # ChangeLog for app-portage/layman
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/app-portage/layman/ChangeLog,v 1.205 2014/09/02 22:06:59 twitch153 Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-portage/layman/ChangeLog,v 1.218 2014/10/18 21:34:34 twitch153 Exp $
+
+*layman-2.2.0-r5 (18 Oct 2014)
+
+  18 Oct 2014; Devan Franchini <twitch153@gentoo.org> +layman-2.2.0-r5.ebuild,
+  -layman-2.2.0-r4.ebuild, files/layman-2.2.0-removes-doctest-remnants.patch:
+  Removes dtest.py in src_prepare() instead of patch, bug #525806
+
+  18 Oct 2014; Devan Franchini <twitch153@gentoo.org>
+  files/layman-2.2.0-removes-doctest-remnants.patch:
+  Fixes patch to remove doctest remnants
+
+*layman-2.2.0-r4 (18 Oct 2014)
+
+  18 Oct 2014; Devan Franchini <twitch153@gentoo.org>
+  +files/layman-2.2.0-removes-doctest-remnants.patch, +layman-2.2.0-r4.ebuild,
+  -layman-2.2.0-r3.ebuild:
+  Adds patch to remove doctests
+
+  16 Oct 2014; Manuel Rüger <mrueg@gentoo.org> layman-2.2.0-r3.ebuild:
+  Add ~arm keyword. Bug #524040.
+
+*layman-2.2.0-r3 (14 Oct 2014)
+
+  14 Oct 2014; Devan Franchini <twitch153@gentoo.org> +layman-2.2.0-r3.ebuild,
+  -layman-2.2.0-r2.ebuild, layman-9999.ebuild:
+  Moves python_pkg_setup to pkg_setup, thanks to Arfrever for the clarification
+
+*layman-2.2.0-r2 (13 Oct 2014)
+
+  13 Oct 2014; Devan Franchini <twitch153@gentoo.org> +layman-2.2.0-r2.ebuild,
+  -layman-2.2.0-r1.ebuild:
+  Moves pkg_setup to python_pkg_setup
+
+  13 Oct 2014; Devan Franchini <twitch153@gentoo.org> layman-9999.ebuild:
+  Adds proper kernel config checking
+
+*layman-2.2.0-r1 (13 Oct 2014)
+
+  13 Oct 2014; Devan Franchini <twitch153@gentoo.org> +layman-2.2.0-r1.ebuild,
+  -layman-2.2.0.ebuild:
+  Adds proper kernel config checking, thanks to Arfrever
+
+  04 Oct 2014; Anthony G. Basile <blueness@gentoo.org> layman-2.2.0.ebuild:
+  Keyworded ~ppc and ~ppc64, bug #524040
+
+  29 Sep 2014; Jeroen Roovers <jer@gentoo.org> layman-2.2.0.ebuild:
+  Marked ~hppa (bug #524040).
+
+  29 Sep 2014; Jeroen Roovers <jer@gentoo.org> layman-2.2.0.ebuild:
+  Drop keywords (bug #524040).
+
+*layman-2.2.0 (28 Sep 2014)
+
+  28 Sep 2014; Devan Franchini <twitch153@gentoo.org> +layman-2.2.0.ebuild:
+  Bumps version for new release
+
+  28 Sep 2014; Devan Franchini <twitch153@gentoo.org> layman-2.1.0-r3.ebuild:
+  reintroduces ~ppc ~ppc64 ~sparc keywords
 
 *layman-2.1.0-r3 (02 Sep 2014)
 

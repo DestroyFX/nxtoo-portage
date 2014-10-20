@@ -1,6 +1,22 @@
 # ChangeLog for dev-util/global
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/global/ChangeLog,v 1.131 2014/09/08 07:15:16 nimiux Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-util/global/ChangeLog,v 1.136 2014/10/18 15:10:35 floppym Exp $
+
+  18 Oct 2014; Mike Gilbert <floppym@gentoo.org> -global-6.2.10.ebuild,
+  -global-6.2.11.ebuild, -global-6.2.12.ebuild, -global-6.3.ebuild:
+  Remove old.
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> global-6.3.1.ebuild:
+  Stable for ppc, wrt bug #524248
+
+  10 Oct 2014; Agostino Sarubbo <ago@gentoo.org> global-6.3.1.ebuild:
+  Stable for x86, wrt bug #524248
+
+  09 Oct 2014; Agostino Sarubbo <ago@gentoo.org> global-6.3.1.ebuild:
+  Stable for amd64, wrt bug #524248
+
+  01 Oct 2014; Mike Gilbert <floppym@gentoo.org> global-6.3.1.ebuild:
+  Fix installation with tex not available. Patch by Arfrever.
 
   08 Sep 2014; Chema Alonso <nimiux@gentoo.org> global-6.3.ebuild:
   Stable for amd64 wrt bug #518612

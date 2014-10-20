@@ -1,6 +1,61 @@
 # ChangeLog for eclass directory
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/ChangeLog,v 1.1376 2014/09/26 17:56:29 grknight Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/ChangeLog,v 1.1390 2014/10/20 12:47:32 dilfridge Exp $
+
+  20 Oct 2014; Andreas K. Huettel <dilfridge@gentoo.org> perl-module.eclass:
+  Output which ebuild actually has bad EAPI
+
+  19 Oct 2014; Andreas K. Huettel <dilfridge@gentoo.org> perl-module.eclass:
+  Move EAPI=0,1,2,3 warning into global scope to become ultra-annoying. Add QA
+  deprecation warning about EAPI=4.
+
+  18 Oct 2014; Mike Gilbert <floppym@gentoo.org> python-utils-r1.eclass:
+  Improve error messaging when python_export is called without a defined python
+  implementation.
+
+  17 Oct 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  mozconfig-v5.33.eclass:
+  added some missing deps, dropped unnecessary expat dep and redundant
+  --with-system-zlib; deps already brought in by mesa so need for end users to
+  update vdb
+
+  15 Oct 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org> perl-app.eclass:
+  Allow ebuild to override GENTOO_DEPEND_ON_PERL_SUBSLOT in perl-app.eclass if
+  necessary
+
+  15 Oct 2014; Michael Palimaka <kensington@gentoo.org> cmake-utils.eclass:
+  Introduce comment_add_subdirectory function. Make EAPI check more technically
+  correct.
+
+  15 Oct 2014; Michael Palimaka <kensington@gentoo.org> +kde5-functions.eclass,
+  +kde5.eclass:
+  Import from KDE overlay.
+
+  14 Oct 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  -mozconfig-v4.1.eclass, +mozconfig-v5.31.eclass, +mozconfig-v5.33.eclass,
+  +mozcoreconf-v3.eclass:
+  added bumps to mozilla config eclasses and removed old
+
+  09 Oct 2014; Davide Pesavento <pesa@gentoo.org> qt5-build.eclass:
+  Fix assignments to RESTRICT.
+
+  08 Oct 2014; Brian Evans <grknight@gentoo.org> mysql-cmake.eclass,
+  mysql-multilib.eclass:
+  Sync from overlay
+
+  07 Oct 2014; Davide Pesavento <pesa@gentoo.org> qt5-build.eclass:
+  Restrict mirror for qtwebkit wrt bug #524584
+
+  28 Sep 2014; Anthony G. Basile <blueness@gentoo.org> pax-utils.eclass:
+  Suppress annoying warning, see
+  https://forums.gentoo.org/viewtopic-p-7624560.html
+
+  27 Sep 2014; Andreas K. Huettel <dilfridge@gentoo.org> perl-module.eclass:
+  Deprecate EAPI=0,1,2,3 in perl-module.eclass with a big fat ewarn instead of
+  making the ebuild fail
+
+  27 Sep 2014; Pacho Ramos <pacho@gentoo.org> gnome-python-common-r1.eclass:
+  Fix typo (#523856 by Kent Fredric)
 
   26 Sep 2014; Brian Evans <grknight@gentoo.org> mysql-multilib.eclass:
   Fix up invalid general IUSE with underscores

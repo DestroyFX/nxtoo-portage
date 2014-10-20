@@ -1,6 +1,15 @@
 # ChangeLog for dev-libs/libev
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/libev/ChangeLog,v 1.74 2014/09/15 08:18:33 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/libev/ChangeLog,v 1.76 2014/10/20 02:25:10 dlan Exp $
+
+*libev-4.19 (20 Oct 2014)
+
+  20 Oct 2014; Yixun Lan <dlan@gentoo.org> -libev-4.15.ebuild,
+  +libev-4.19.ebuild:
+  version bump, and fix 524150, thanks Joachim IONOFF and serge
+
+  11 Oct 2014; Markus Meier <maekke@gentoo.org> libev-4.15-r1.ebuild:
+  arm stable, bug #512012
 
   15 Sep 2014; Agostino Sarubbo <ago@gentoo.org> libev-4.15-r1.ebuild:
   Stable for sparc, wrt bug #512012
