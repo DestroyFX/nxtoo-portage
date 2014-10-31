@@ -1,6 +1,45 @@
 # ChangeLog for net-analyzer/wireshark
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/net-analyzer/wireshark/ChangeLog,v 1.656 2014/09/27 10:58:51 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-analyzer/wireshark/ChangeLog,v 1.663 2014/10/30 23:53:12 jer Exp $
+
+*wireshark-99999999 (30 Oct 2014)
+
+  30 Oct 2014; Jeroen Roovers <jer@gentoo.org> -wireshark-1.99.0.ebuild,
+  +wireshark-99999999.ebuild:
+  Add live ebuild.
+
+  27 Oct 2014; Mike Frysinger <vapier@gentoo.org> wireshark-1.12.1.ebuild,
+  wireshark-1.99.0-r1.ebuild, wireshark-1.99.0.ebuild:
+  Drop random perl deps in favor of blockers #455122.
+
+*wireshark-1.99.0-r1 (24 Oct 2014)
+
+  24 Oct 2014; Jeroen Roovers <jer@gentoo.org> +wireshark-1.99.0-r1.ebuild,
+  +files/wireshark-1.99.0-qt5.patch:
+  Add USE=qt5 (bug #488640).
+
+  14 Oct 2014; Jeroen Roovers <jer@gentoo.org> wireshark-1.12.1.ebuild,
+  wireshark-1.99.0.ebuild:
+  Add virtual/freedesktop-icon-theme dependency (bug #525390).
+
+*wireshark-1.99.0 (07 Oct 2014)
+
+  07 Oct 2014; Jeroen Roovers <jer@gentoo.org> +wireshark-1.99.0.ebuild,
+  -wireshark-1.99.0.1989.ebuild:
+  Version bump.
+
+*wireshark-1.99.0.1989 (03 Oct 2014)
+
+  03 Oct 2014; Jeroen Roovers <jer@gentoo.org> -wireshark-1.99.0.1975.ebuild,
+  +wireshark-1.99.0.1989.ebuild:
+  Version bump. Fix USE=doc-pdf / pof accessing /root/.java.
+
+*wireshark-1.99.0.1975 (02 Oct 2014)
+
+  02 Oct 2014; Jeroen Roovers <jer@gentoo.org> +wireshark-1.99.0.1975.ebuild,
+  +files/wireshark-1.99.0.1975-gcc_option.patch,
+  +files/wireshark-1.99.0.1975-sse4_2.patch, metadata.xml:
+  Version bump.
 
   27 Sep 2014; Jeroen Roovers <jer@gentoo.org> -wireshark-1.10.9.ebuild,
   -files/wireshark-1.10.1-oldlibs.patch,

@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-process/htop/htop-1.0.3.ebuild,v 1.1 2014/05/02 23:05:38 idl0r Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-process/htop/htop-1.0.3.ebuild,v 1.7 2014/10/30 21:29:57 idl0r Exp $
 
 EAPI=5
 
@@ -16,11 +16,12 @@ SRC_URI="http://hisham.hm/htop/releases/${PV}/${P}.tar.gz"
 
 LICENSE="BSD GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ppc ppc64 ~sh ~sparc x86 ~amd64-linux ~x86-linux"
 IUSE="kernel_FreeBSD kernel_linux oom openvz unicode vserver"
 
 RDEPEND="sys-libs/ncurses[unicode?]"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	virtual/pkgconfig"
 
 DOCS=( ChangeLog README )
 
@@ -28,6 +29,8 @@ CONFIG_CHECK="~TASKSTATS ~TASK_XACCT ~TASK_IO_ACCOUNTING ~CGROUPS"
 
 # config.h problems
 AUTOTOOLS_IN_SOURCE_BUILD=1
+
+PATCHES=("${FILESDIR}/${P}-tinfo.patch")
 
 pkg_setup() {
 	if use kernel_FreeBSD && ! [[ -f ${ROOT}/compat/linux/proc/stat && -f ${ROOT}/compat/linux/proc/meminfo ]]; then

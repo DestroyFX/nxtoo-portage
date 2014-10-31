@@ -1,6 +1,29 @@
 # ChangeLog for eclass directory
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/ChangeLog,v 1.1390 2014/10/20 12:47:32 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/ChangeLog,v 1.1397 2014/10/31 00:57:49 pesa Exp $
+
+  31 Oct 2014; Davide Pesavento <pesa@gentoo.org> multibuild.eclass:
+  Make sure BUILD_DIR exists before pushd'ing into it.
+
+  30 Oct 2014; Pacho Ramos <pacho@gentoo.org> vala.eclass:
+  Fix repoman warnings (#521980 by Arfrever Frehtes Taifersar Arahesis)
+
+  28 Oct 2014; Michael Palimaka <kensington@gentoo.org> kde5-functions.eclass:
+  Fix handling of frameworks version dependencies within kde-frameworks.
+
+  27 Oct 2014; Hans de Graaff <graaff@gentoo.org> ruby-ng-gnome2.eclass:
+  Enable verbose compilation output for the ruby gnome packages.
+
+  27 Oct 2014; Alexis Ballier <aballier@gentoo.org> cmake-utils.eclass:
+  improve/fix cross-compilation support, bug #503216 by James Le Cuirot and
+  myself
+
+  26 Oct 2014; Ulrich Müller <ulm@gentoo.org> toolchain.eclass:
+  [QA] Code from revisions 1.636 and 1.640 commented out. This causes several
+  file collisions, see bug 526144 and related bugs.
+
+  25 Oct 2014; Michael Palimaka <kensington@gentoo.org> kde4-base.eclass:
+  Add kde-workspace 4.11.13 SRC_URI.
 
   20 Oct 2014; Andreas K. Huettel <dilfridge@gentoo.org> perl-module.eclass:
   Output which ebuild actually has bad EAPI

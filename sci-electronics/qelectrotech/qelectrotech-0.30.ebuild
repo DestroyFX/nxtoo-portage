@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-electronics/qelectrotech/qelectrotech-0.30.ebuild,v 1.1 2013/12/22 16:56:39 pesa Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-electronics/qelectrotech/qelectrotech-0.30.ebuild,v 1.4 2014/10/10 10:54:39 ago Exp $
 
 EAPI=5
 PLOCALES="cs de el en es fr it pl pt ro ru"
@@ -15,11 +15,12 @@ SRC_URI="http://download.tuxfamily.org/qet/tags/20130928/${MY_P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 IUSE="doc"
 
 RDEPEND="
+	dev-qt/designer:4
 	dev-qt/qtcore:4
 	dev-qt/qtgui:4
 	dev-qt/qtsql:4[sqlite]
@@ -50,6 +51,6 @@ src_install() {
 
 	if use doc; then
 		doxygen Doxyfile || die
-		dohtml -r doc/html/*
+		dodoc -r doc/html
 	fi
 }

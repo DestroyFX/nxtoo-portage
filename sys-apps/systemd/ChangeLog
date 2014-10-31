@@ -1,6 +1,43 @@
 # ChangeLog for sys-apps/systemd
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/systemd/ChangeLog,v 1.309 2014/09/14 10:18:09 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/systemd/ChangeLog,v 1.318 2014/10/30 08:47:31 mgorny Exp $
+
+*systemd-217 (30 Oct 2014)
+
+  30 Oct 2014; Michał Górny <mgorny@gentoo.org>
+  +files/217-systemd-consoled.service.in, +systemd-217.ebuild, metadata.xml,
+  systemd-9999.ebuild:
+  Version bump.
+
+  22 Oct 2014; Mike Gilbert <floppym@gentoo.org> systemd-216-r1.ebuild,
+  systemd-9999.ebuild:
+  Use keepdir /var/log/journal/remote instead of removing it.
+
+  20 Oct 2014; Mike Gilbert <floppym@gentoo.org> systemd-216-r1.ebuild,
+  systemd-9999.ebuild:
+  Remove empty /var/log/journal directory.
+
+  19 Oct 2014; Mike Gilbert <floppym@gentoo.org> metadata.xml:
+  Improve cryptsetup description.
+
+  19 Oct 2014; Mike Gilbert <floppym@gentoo.org> metadata.xml:
+  Remove pointless comment.
+
+  19 Oct 2014; Mike Gilbert <floppym@gentoo.org> metadata.xml,
+  systemd-216-r1.ebuild, systemd-9999.ebuild:
+  Add use flag to control apparmor support, bug 525894 by Dainius Masiliūnas.
+
+  15 Oct 2014; Tobias Klausmann <klausman@gentoo.org> systemd-215-r3.ebuild:
+  Stable on alpha, bug 517120
+
+  12 Oct 2014; Pacho Ramos <pacho@gentoo.org> systemd-216-r1.ebuild:
+  Readd sparc keyword as I don't see when/why was it dropped
+
+*systemd-216-r1 (12 Oct 2014)
+
+  12 Oct 2014; Pacho Ramos <pacho@gentoo.org> +systemd-216-r1.ebuild,
+  -systemd-216.ebuild:
+  revbump due bug #520662
 
   14 Sep 2014; Pacho Ramos <pacho@gentoo.org> systemd-212-r5.ebuild,
   systemd-215-r3.ebuild, systemd-216.ebuild, systemd-9999.ebuild:

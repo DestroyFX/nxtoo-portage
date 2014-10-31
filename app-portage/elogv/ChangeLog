@@ -1,6 +1,36 @@
 # ChangeLog for app-portage/elogv
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/app-portage/elogv/ChangeLog,v 1.79 2014/03/13 20:10:58 ottxor Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-portage/elogv/ChangeLog,v 1.85 2014/10/29 01:22:07 sping Exp $
+
+*elogv-0.7.6.6 (29 Oct 2014)
+
+  29 Oct 2014; Sebastian Pipping <sping@gentoo.org> +elogv-0.7.6.6.ebuild:
+  Bump to 0.7.6.6 (bug #527240)
+
+*elogv-0.7.6.5 (26 Oct 2014)
+
+  26 Oct 2014; Sebastian Pipping <sping@gentoo.org> +elogv-0.7.6.5.ebuild:
+  Bump to 0.7.6.5
+
+*elogv-0.7.6.4 (26 Oct 2014)
+
+  26 Oct 2014; Sebastian Pipping <sping@gentoo.org> +elogv-0.7.6.4.ebuild:
+  Bump to 0.7.6.4
+
+*elogv-0.7.6.3 (25 Oct 2014)
+
+  25 Oct 2014; Sebastian Pipping <sping@gentoo.org> +elogv-0.7.6.3.ebuild:
+  Bump to 0.7.6.3, fixes ja_JP locale issue (bug #464962)
+
+  24 Oct 2014; Sebastian Pipping <sping@gentoo.org> elogv-0.7.4.ebuild,
+  elogv-0.7.4-r1.ebuild, -elogv-0.7.5.ebuild, -elogv-0.7.5-r1.ebuild,
+  -elogv-0.7.5-r2.ebuild, -elogv-0.7.6.1.ebuild, elogv-0.7.6.1-r1.ebuild:
+  Remove old versions, fix make.conf location (bug #468442)
+
+*elogv-0.7.6.2 (24 Oct 2014)
+
+  24 Oct 2014; Sebastian Pipping <sping@gentoo.org> +elogv-0.7.6.2.ebuild:
+  Bump to 0.7.6.2 (bug #503904, #468442)
 
   13 Mar 2014; Christoph Junghans <ottxor@gentoo.org> elogv-0.7.6.1-r1.ebuild:
   added ~x64-macos (tested by me)

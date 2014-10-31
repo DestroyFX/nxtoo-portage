@@ -1,6 +1,14 @@
 # ChangeLog for sys-devel/llvm
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/llvm/ChangeLog,v 1.207 2014/09/18 20:06:55 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-devel/llvm/ChangeLog,v 1.209 2014/10/20 07:08:16 mgorny Exp $
+
+  20 Oct 2014; Michał Górny <mgorny@gentoo.org> llvm-3.5.0.ebuild,
+  llvm-9999.ebuild:
+  Fix old dev-python/configparser blocker. Bug #525916.
+
+  29 Sep 2014; Michał Górny <mgorny@gentoo.org> llvm-3.5.0.ebuild,
+  llvm-9999.ebuild:
+  Block configparser-3.2 since it is known to break the build.
 
   18 Sep 2014; Michał Górny <mgorny@gentoo.org>
   files/clang-3.5-gentoo-runtime-gcc-detection-v3.patch:

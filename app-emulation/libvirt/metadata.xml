@@ -3,6 +3,11 @@
 <pkgmetadata>
   <herd>virtualization</herd>
   <maintainer>
+    <email>tamiko@gentoo.org</email>
+    <name>Matthias Maier</name>
+	<description>Substitute, please assign bugs to me</description>
+  </maintainer>
+  <maintainer>
     <email>cardoe@gentoo.org</email>
     <name>Doug Goldstein</name>
   </maintainer>

@@ -1,8 +1,8 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/ardour/ardour-9999.ebuild,v 1.9 2014/10/11 13:02:51 nativemad Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/ardour/ardour-9999.ebuild,v 1.12 2014/10/27 15:58:35 nativemad Exp $
 
-EAPI=4
+EAPI=5
 inherit eutils toolchain-funcs flag-o-matic waf-utils
 
 DESCRIPTION="Digital Audio Workstation"
@@ -78,20 +78,34 @@ src_unpack() {
 
 src_prepare(){
 	if ! [ ${PV} = 9999 ]; then
-		PVTEMP=`echo "${PV}" | sed "s/\./-/2"`
+		PVTEMP=$(echo "${PV}" | sed "s/\./-/2")
 		sed -e '/cmd = "git describe HEAD/,/utf-8/{s:cmd = \"git describe HEAD\":rev = \"'${PVTEMP}-gentoo'\":p;d}' -i "${S}"/wscript
 		sed -e 's/'os.getcwd\(\),\ \'.git'/'os.getcwd\(\),\ \'libs/'' -i "${S}"/wscript
 		sed -e 's/'os.path.exists\(\'.git'/'os.path.exists\(\'wscript/'' -i "${S}"/wscript
-
 	fi
 	epatch "${FILESDIR}"/${PN}-3.5.7-syslibs.patch
+	epatch "${FILESDIR}"/${PN}-3.5.403-sse.patch
 	sed 's/python/python2/' -i waf
-#	sed 's/'FLAGS\'\,\ optimization_flags'/'FLAGS\'\,\ \'\''/g' -i "${S}"/wscript
 	sed 's/'FLAGS\'\,\ compiler_flags'/'FLAGS\'\,\ \'\''/g' -i "${S}"/wscript
 	append-flags "-lboost_system"
 }
 
 src_configure() {
+	if use sse; then
+		MARCH=$(get-flag march)
+		for ARCHWOSSE in i686 i486; do
+			if [[ ${MARCH} = ${ARCHWOSSE} ]]; then
+				for SSEOPT in -msse -msse2 -msse3 -mssse3 -msse4 -msse4.1 -msse4.2; do
+					is-flag ${SSEOPT} && SSEON="yes"
+				done
+				if [ -z ${SSEON} ]; then
+					append-flags -msse
+					elog "You enabled sse but use an march that does not support sse!"
+					elog "We add -msse to the cflags now, but please consider switching your march in make.conf!"
+				fi
+			fi
+		done
+	fi
 	tc-export CC CXX
 	mkdir -p "${D}"
 	waf-utils_src_configure \
@@ -101,7 +115,7 @@ src_configure() {
 		$(use lv2 && echo "--lv2" || echo "--no-lv2") \
 		$(use nls && echo "--nls" || echo "--no-nls") \
 		$(use debug && echo "--stl-debug" || echo "--optimize") \
-		$((use altivec || use sse) && echo "--fpu-optimization" || echo "--no-fpu-optimization") \
+		$({ use altivec || use sse; } && echo "--fpu-optimization" || echo "--no-fpu-optimization") \
 		$(use doc && echo "--docs")
 }
 

@@ -1,6 +1,46 @@
 # ChangeLog for net-analyzer/iftop
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/net-analyzer/iftop/ChangeLog,v 1.70 2014/08/03 18:37:07 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-analyzer/iftop/ChangeLog,v 1.77 2014/10/27 23:09:43 jer Exp $
+
+  27 Oct 2014; Jeroen Roovers <jer@gentoo.org> -iftop-1.0_pre4-r1.ebuild,
+  -files/iftop-1.0_pre4-ac_check_sizeof.patch,
+  -files/iftop-1.0_pre4-single-quote.patch:
+  Old.
+
+  27 Oct 2014; Jeroen Roovers <jer@gentoo.org> iftop-1.0_pre4-r2.ebuild,
+  +files/iftop-1.0_pre4-Makefile.am.patch,
+  +files/iftop-1.0_pre4-configure.ac.patch:
+  Combine several configure.ac patches and add PKG_PROG_PKG_CONFIG().
+
+  26 Oct 2014; Jeroen Roovers <jer@gentoo.org>
+  files/iftop-1.0_pre4-single-quote.patch:
+  Missed a few single quotes.
+
+  26 Oct 2014; Jeroen Roovers <jer@gentoo.org> iftop-1.0_pre4-r2.ebuild,
+  files/iftop-1.0_pre4-single-quote.patch:
+  Missed a few single quotes.
+
+*iftop-1.0_pre4-r2 (26 Oct 2014)
+
+  26 Oct 2014; Jeroen Roovers <jer@gentoo.org> +iftop-1.0_pre4-r2.ebuild,
+  +files/iftop-1.0_pre4-single-quote.patch:
+  Replace single quotes in macro calls.
+
+  25 Oct 2014; Jeroen Roovers <jer@gentoo.org> iftop-1.0_pre4-r1.ebuild,
+  +files/iftop-1.0_pre4-tsent-set-but-not-used.patch:
+  Remove unused variable.
+
+*iftop-1.0_pre4-r1 (25 Oct 2014)
+
+  25 Oct 2014; Jeroen Roovers <jer@gentoo.org> +iftop-1.0_pre4-r1.ebuild,
+  +files/iftop-1.0_pre4-ac_check_sizeof.patch:
+  Replace broken sizeof checks.
+
+  22 Oct 2014; Jeroen Roovers <jer@gentoo.org> -iftop-0.17.ebuild,
+  -iftop-1.0_pre2.ebuild, -iftop-1.0_pre3.ebuild,
+  -files/iftop-0.16-bar_in_bytes.patch, -files/iftop-1.0_pre2-pthread.patch,
+  -files/iftop-1.0_pre2-tinfo.patch, -files/iftop-1.0_pre3-tinfo.patch:
+  Old.
 
   03 Aug 2014; Agostino Sarubbo <ago@gentoo.org> iftop-1.0_pre4.ebuild:
   Stable for ppc, wrt bug #511716

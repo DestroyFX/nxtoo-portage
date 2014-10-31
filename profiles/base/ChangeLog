@@ -1,6 +1,50 @@
 # ChangeLog for Gentoo base-profile
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/base/ChangeLog,v 1.728 2014/09/19 17:30:25 ssuominen Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/base/ChangeLog,v 1.740 2014/10/30 21:01:49 dilfridge Exp $
+
+  30 Oct 2014; Andreas K. Huettel <dilfridge@gentoo.org>
+  package.use.stable.mask:
+  Stable mask vtk support of media-libs/opencv, so bug 527518 can go ahead
+
+  26 Oct 2014; Chí-Thanh Christopher Nguyễn <chithanh@gentoo.org>
+  package.mask:
+  Move xinit mask to base/ in order to be able to properly unmask in systemd
+  target.
+
+  22 Oct 2014; Brian Evans <grknight@gentoo.org> use.stable.mask:
+  Mask php_targets_php5-6 until it is stable.
+
+  21 Oct 2014; Mike Frysinger <vapier@gentoo.org> package.use.mask:
+  Mask sys-devel/gcc[sanitize] #504200.
+
+  19 Oct 2014; Mike Gilbert <floppym@gentoo.org> use.mask:
+  Mask apparmor.
+
+  19 Oct 2014; Mike Frysinger <vapier@gentoo.org> package.use.force:
+  Restrict bash USE=readline mask to SLOT=0.
+
+  18 Oct 2014; Mike Frysinger <vapier@gentoo.org> package.use.mask:
+  Drop systemd-specific seccomp mask since the USE flag itself is handled
+  properly #524148 by Christian Ruppert.
+
+  11 Oct 2014; Tim Harder <radhermit@gentoo.org> package.use.mask,
+  package.use.stable.mask:
+  Move net-im/bitlbee skype use flag mask back to package.use.mask and unmask
+  in specific profiles (bug #525006).
+
+  10 Oct 2014; Tim Harder <radhermit@gentoo.org> package.use.mask,
+  package.use.stable.mask:
+  Move net-im/bitlbee skype use flag mask to package.use.stable.mask (bug
+  #523708).
+
+  09 Oct 2014; Michael Palimaka <kensington@gentoo.org> package.use.stable.mask:
+  Move kde-base/kopete[otr] from regular mask to stable mask.
+
+  01 Oct 2014; Sergey Popov <pinkbyte@gentoo.org> package.use.mask:
+  Mask USE='multislot' in sys-devel/binutils as well, bug #507808
+
+  30 Sep 2014; Bernard Cafarelli <voyageur@gentoo.org> package.use.mask:
+  Add dev-python/pyocr to the cuneiform USE flag mask
 
   16 Sep 2014; Brian Evans <grknight@gentoo.org> package.use.mask:
   Remove old mysql-5.1.5{1,2,3} entries that are long gone from the tree.

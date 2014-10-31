@@ -1,6 +1,21 @@
 # ChangeLog for dev-db/lmdb
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/lmdb/ChangeLog,v 1.10 2014/08/19 20:24:23 blueness Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-db/lmdb/ChangeLog,v 1.14 2014/10/31 10:38:41 eras Exp $
+
+  31 Oct 2014; Eray Aslan <eras@gentoo.org> metadata.xml:
+  Add ldap herd to metadata
+
+  27 Oct 2014; Robin H. Johnson <robbat2@gentoo.org> lmdb-0.9.10.ebuild,
+  lmdb-0.9.11.ebuild, lmdb-0.9.13.ebuild, lmdb-0.9.14.ebuild:
+  Bug #525126 redux, block the old conflicting openldap.
+
+  27 Oct 2014; Robin H. Johnson <robbat2@gentoo.org> lmdb-0.9.14.ebuild:
+  Copy keywords from openldap, because this code came from there.
+
+*lmdb-0.9.14 (23 Oct 2014)
+
+  23 Oct 2014; Eray Aslan <eras@gentoo.org> +lmdb-0.9.14.ebuild:
+  Version bump
 
   19 Aug 2014; Anthony G. Basile <blueness@gentoo.org> lmdb-0.9.10.ebuild,
   lmdb-0.9.11.ebuild, lmdb-0.9.13.ebuild:

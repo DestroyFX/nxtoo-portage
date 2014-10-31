@@ -1,6 +1,30 @@
 # ChangeLog for sys-devel/make
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/make/ChangeLog,v 1.119 2014/01/18 03:11:00 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-devel/make/ChangeLog,v 1.125 2014/10/20 20:28:28 polynomial-c Exp $
+
+*make-4.1-r1 (20 Oct 2014)
+
+  20 Oct 2014; Lars Wendler <polynomial-c@gentoo.org> -make-4.1.ebuild,
+  +make-4.1-r1.ebuild, +files/make-4.1-fix_null_returns_from_ttyname.patch:
+  Revbump to fix a segfault when running make without /dev/pts being mounted
+  (bug #525546).
+
+  16 Oct 2014; Markus Meier <maekke@gentoo.org> make-4.0-r1.ebuild:
+  arm stable, bug #524530
+
+  10 Oct 2014; Agostino Sarubbo <ago@gentoo.org> make-4.0-r1.ebuild:
+  Stable for x86, wrt bug #524530
+
+  05 Oct 2014; Jeroen Roovers <jer@gentoo.org> make-4.0-r1.ebuild:
+  Stable for HPPA (bug #524530).
+
+  05 Oct 2014; Mikle Kolyada <zlogene@gentoo.org> make-4.0-r1.ebuild:
+  amd64 stable wrt bug #524530
+
+*make-4.1 (05 Oct 2014)
+
+  05 Oct 2014; Lars Wendler <polynomial-c@gentoo.org> +make-4.1.ebuild:
+  Version bump.
 
   18 Jan 2014; Mike Frysinger <vapier@gentoo.org> make-3.82-r4.ebuild,
   make-4.0-r1.ebuild:

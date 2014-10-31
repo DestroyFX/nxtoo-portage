@@ -1,6 +1,39 @@
 # ChangeLog for net-analyzer/openvas
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/net-analyzer/openvas/ChangeLog,v 1.13 2014/06/19 13:39:24 hanno Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-analyzer/openvas/ChangeLog,v 1.21 2014/10/22 08:19:33 jlec Exp $
+
+  22 Oct 2014; Justin Lecher <jlec@gentoo.org> openvas-8_beta3.ebuild:
+  Update dependency versions
+
+*openvas-8_beta3 (22 Oct 2014)
+*openvas-7-r2 (22 Oct 2014)
+
+  22 Oct 2014; Justin Lecher <jlec@gentoo.org> +openvas-7-r2.ebuild,
+  +openvas-8_beta3.ebuild:
+  Add postinst suggestions and add beta version
+
+  17 Oct 2014; Justin Lecher <jlec@gentoo.org> openvas-7-r1.ebuild:
+  Add missing dependency on dev-texlive/texlive-latexextra, #525498
+
+  02 Oct 2014; Justin Lecher <jlec@gentoo.org> openvas-7.ebuild,
+  openvas-7-r1.ebuild:
+  Enable pdf report by default
+
+  01 Oct 2014; Justin Lecher <jlec@gentoo.org> openvas-7-r1.ebuild:
+  Add missing deps
+
+  01 Oct 2014; Justin Lecher <jlec@gentoo.org> openvas-7-r1.ebuild,
+  metadata.xml:
+  Add USE for pdf generation
+
+*openvas-7-r1 (01 Oct 2014)
+
+  01 Oct 2014; Justin Lecher <jlec@gentoo.org> +openvas-7-r1.ebuild,
+  +files/README.gentoo:
+  Add README for Gentoo
+
+  29 Sep 2014; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Add myself as maintainer
 
 *openvas-7 (19 Jun 2014)
 

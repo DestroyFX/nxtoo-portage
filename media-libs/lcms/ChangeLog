@@ -1,6 +1,40 @@
 # ChangeLog for media-libs/lcms
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/lcms/ChangeLog,v 1.178 2014/07/04 19:39:06 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/lcms/ChangeLog,v 1.187 2014/10/30 18:50:21 maekke Exp $
+
+  30 Oct 2014; Markus Meier <maekke@gentoo.org> lcms-2.6-r1.ebuild:
+  arm stable, bug #507788
+
+  29 Oct 2014; Agostino Sarubbo <ago@gentoo.org> lcms-2.6-r1.ebuild:
+  Stable for sparc, wrt bug #507788
+
+  29 Oct 2014; Tobias Klausmann <klausman@gentoo.org> lcms-2.6-r1.ebuild:
+  Stable on alpha, bug 507788
+
+  27 Oct 2014; Agostino Sarubbo <ago@gentoo.org> lcms-2.6-r1.ebuild:
+  Stable for x86, wrt bug #507788
+
+  27 Oct 2014; Agostino Sarubbo <ago@gentoo.org> lcms-2.6-r1.ebuild:
+  Stable for amd64, wrt bug #507788
+
+  25 Oct 2014; Jeroen Roovers <jer@gentoo.org> lcms-2.6-r1.ebuild:
+  Stable for HPPA (bug #507788).
+
+*lcms-2.6-r1 (24 Oct 2014)
+
+  24 Oct 2014; Matthias Maier <tamiko@gentoo.org>
+  +files/lcms-2.6-cve-2014-0459.patch, +lcms-2.6-r1.ebuild, lcms-2.6.ebuild:
+  apply upstream fix related to CVE-2014-0459
+
+  23 Oct 2014; Jeroen Roovers <jer@gentoo.org> lcms-1.19-r3.ebuild,
+  lcms-2.6.ebuild:
+  Stable for HPPA (bug #479874).
+
+*lcms-1.19-r3 (23 Oct 2014)
+
+  23 Oct 2014; Matthias Maier <tamiko@gentoo.org>
+  +files/lcms-1.19-cve-2013-4276.patch, +lcms-1.19-r3.ebuild:
+  fix CVE-2013-4276 wrt bug #479874
 
   04 Jul 2014; Agostino Sarubbo <ago@gentoo.org> lcms-1.19-r1.ebuild:
   Stable for ppc, wrt bug #504214

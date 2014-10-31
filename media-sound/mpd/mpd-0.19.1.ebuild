@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/mpd/mpd-0.19.1.ebuild,v 1.2 2014/10/20 09:27:52 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/mpd/mpd-0.19.1.ebuild,v 1.5 2014/10/29 03:48:14 zerochaos Exp $
 
 EAPI=5
 inherit eutils flag-o-matic linux-info multilib readme.gentoo systemd user
@@ -26,13 +26,22 @@ ENCODER_PLUGINS="audiofile flac lame twolame vorbis"
 
 REQUIRED_USE="|| ( ${OUTPUT_PLUGINS} )
 	|| ( ${DECODER_PLUGINS} )
+	ao? ( glib )
+	gme? ( glib )
+	jack? ( glib )
 	mp4v2? ( faad )
-	network? ( || ( ${ENCODER_PLUGINS} ) )
+	network? ( || ( ${ENCODER_PLUGINS} )
+		glib )
 	recorder? ( || ( ${ENCODER_PLUGINS} ) )
-	opus? ( ogg )"
+	sid? ( glib )
+	soundcloud? ( glib )
+	sqlite? ( glib )
+	opus? ( ogg )
+	upnp? ( expat )
+	vorbis? ( glib )
+	wavpack? ( glib )"
 
 RDEPEND="!<sys-cluster/mpich2-1.4_rc2
-	dev-libs/glib:2
 	adplug? ( media-libs/adplug )
 	alsa? ( media-sound/alsa-utils
 		media-libs/alsa-lib )
@@ -85,6 +94,7 @@ RDEPEND="!<sys-cluster/mpich2-1.4_rc2
 	zeroconf? ( net-dns/avahi[dbus] )
 	zip? ( dev-libs/zziplib )"
 DEPEND="${RDEPEND}
+	dev-libs/boost
 	virtual/pkgconfig"
 
 pkg_setup() {
