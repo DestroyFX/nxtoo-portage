@@ -1,6 +1,15 @@
 # ChangeLog for sys-apps/bleachbit
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/bleachbit/ChangeLog,v 1.18 2014/09/07 10:29:04 dev-zero Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/bleachbit/ChangeLog,v 1.20 2014/10/30 14:03:49 ago Exp $
+
+  30 Oct 2014; Agostino Sarubbo <ago@gentoo.org> bleachbit-1.2.ebuild:
+  Stable for amd64, wrt bug #503682
+
+*bleachbit-1.4 (17 Oct 2014)
+
+  17 Oct 2014; Tiziano Müller <dev-zero@gentoo.org> +bleachbit-1.4.ebuild,
+  -bleachbit-0.9.5.ebuild, -bleachbit-1.0.ebuild:
+  Version bump (bug #522608), drop old.
 
 *bleachbit-1.2 (07 Sep 2014)
 

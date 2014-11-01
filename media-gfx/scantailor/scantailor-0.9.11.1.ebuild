@@ -1,9 +1,9 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/scantailor/scantailor-0.9.11.1.ebuild,v 1.2 2013/03/02 21:40:28 hwoarang Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-gfx/scantailor/scantailor-0.9.11.1.ebuild,v 1.4 2014/10/19 09:38:51 nimiux Exp $
 
 EAPI=4
-inherit cmake-utils eutils virtualx
+inherit cmake-utils eutils virtualx toolchain-funcs
 
 DESCRIPTION="A interactive post-processing tool for scanned pages"
 HOMEPAGE="http://scantailor.sourceforge.net/"
@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2 GPL-3 public-domain"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 ~x86"
 IUSE="opengl"
 
 RDEPEND=">=media-libs/libpng-1.2.43
@@ -25,6 +25,8 @@ DEPEND="${RDEPEND}
 	dev-libs/boost"
 
 src_configure() {
+	tc-export CXX
+
 	mycmakeargs=(
 		-DCOMPILER_FLAGS_OVERRIDDEN=ON
 		$(cmake-utils_use_enable opengl)

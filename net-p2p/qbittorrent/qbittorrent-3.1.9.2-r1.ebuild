@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-p2p/qbittorrent/qbittorrent-3.1.9.2-r1.ebuild,v 1.1 2014/05/24 22:53:34 pesa Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-p2p/qbittorrent/qbittorrent-3.1.9.2-r1.ebuild,v 1.4 2014/10/19 00:23:31 pesa Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python{2_6,2_7} )
@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~x86"
+KEYWORDS="amd64 ~arm x86"
 
 IUSE="dbus debug geoip +X"
 
@@ -23,7 +23,7 @@ CDEPEND="
 	dev-libs/boost:=
 	dev-qt/qtcore:4
 	>=dev-qt/qtsingleapplication-2.6.1_p20130904-r1[X?]
-	>=net-libs/rb_libtorrent-0.16.10
+	>=net-libs/rb_libtorrent-0.16.17
 	dbus? ( dev-qt/qtdbus:4 )
 	X? ( dev-qt/qtgui:4 )
 "

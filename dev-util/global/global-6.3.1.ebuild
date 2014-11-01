@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/global/global-6.3.1.ebuild,v 1.1 2014/08/11 23:05:12 floppym Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-util/global/global-6.3.1.ebuild,v 1.5 2014/10/18 14:20:31 ago Exp $
 
 EAPI="5"
 
@@ -12,7 +12,7 @@ SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~x86-fbsd"
+KEYWORDS="amd64 ppc x86 ~x86-fbsd"
 IUSE="doc emacs vim"
 
 RDEPEND="sys-devel/libtool
@@ -51,7 +51,8 @@ src_install() {
 
 	if use doc; then
 		dohtml doc/global.html
-		dodoc doc/global.pdf
+		# doc/global.pdf is generated if tex executable (e.g. /usr/bin/tex) is available.
+		[[ -f doc/global.pdf ]] && dodoc doc/global.pdf
 	fi
 
 	dodoc AUTHORS FAQ NEWS README THANKS

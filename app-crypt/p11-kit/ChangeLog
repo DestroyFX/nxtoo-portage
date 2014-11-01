@@ -1,6 +1,25 @@
 # ChangeLog for app-crypt/p11-kit
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/app-crypt/p11-kit/ChangeLog,v 1.72 2014/09/23 06:27:41 alonbl Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-crypt/p11-kit/ChangeLog,v 1.76 2014/10/12 16:32:40 radhermit Exp $
+
+*p11-kit-0.22.1 (12 Oct 2014)
+
+  12 Oct 2014; Tim Harder <radhermit@gentoo.org> +p11-kit-0.22.1.ebuild:
+  Version bump.
+
+  10 Oct 2014; Tim Harder <radhermit@gentoo.org> -p11-kit-0.20.3-r1.ebuild,
+  -p11-kit-0.20.4.ebuild, -p11-kit-0.21.3.ebuild:
+  Remove old.
+
+*p11-kit-0.22.0 (10 Oct 2014)
+
+  10 Oct 2014; Tim Harder <radhermit@gentoo.org> +p11-kit-0.22.0.ebuild:
+  Version bump.
+
+*p11-kit-0.20.7 (27 Sep 2014)
+
+  27 Sep 2014; Tim Harder <radhermit@gentoo.org> +p11-kit-0.20.7.ebuild:
+  Version bump stable series.
 
 *p11-kit-0.21.3 (23 Sep 2014)
 

@@ -1,6 +1,32 @@
 # ChangeLog for net-proxy/haproxy
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/net-proxy/haproxy/ChangeLog,v 1.103 2014/09/07 10:45:45 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-proxy/haproxy/ChangeLog,v 1.109 2014/10/30 21:37:30 idl0r Exp $
+
+  30 Oct 2014; Christian Ruppert <idl0r@gentoo.org> haproxy-1.5.6.ebuild,
+  haproxy-9999.ebuild, metadata.xml:
+  Fix live ebuild. Add separate USE-flag for JIT and also fix the libpcre
+  depend
+
+*haproxy-1.5.6 (19 Oct 2014)
+
+  19 Oct 2014; Christian Ruppert <idl0r@gentoo.org> -haproxy-1.5.5.ebuild,
+  +haproxy-1.5.6.ebuild:
+  Version bump
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> haproxy-1.5.4.ebuild:
+  Stable for ppc, wrt bug #524762
+
+  10 Oct 2014; Agostino Sarubbo <ago@gentoo.org> haproxy-1.5.4.ebuild:
+  Stable for x86, wrt bug #524762
+
+  09 Oct 2014; Agostino Sarubbo <ago@gentoo.org> haproxy-1.5.4.ebuild:
+  Stable for amd64, wrt bug #524762
+
+*haproxy-1.5.5 (08 Oct 2014)
+
+  08 Oct 2014; Christian Ruppert <idl0r@gentoo.org> -haproxy-1.4.24.ebuild,
+  +haproxy-1.5.5.ebuild:
+  Version bump
 
   07 Sep 2014; Agostino Sarubbo <ago@gentoo.org> haproxy-1.4.25.ebuild:
   Stable for ppc, wrt bug #514930

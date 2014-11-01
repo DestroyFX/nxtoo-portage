@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/mysql-multilib.eclass,v 1.9 2014/09/26 17:56:29 grknight Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/mysql-multilib.eclass,v 1.10 2014/10/08 17:25:46 grknight Exp $
 
 # @ECLASS: mysql-multilib.eclass
 # @MAINTAINER:
@@ -257,7 +257,7 @@ else
 fi
 
 if [[ ${PN} == "mysql" || ${PN} == "percona-server" ]] ; then
-	mysql_version_is_at_least "5.7.5" && DEPEND="${DEPEND} dev-libs/boost:0="
+	mysql_version_is_at_least "5.7.5" && DEPEND="${DEPEND} >=dev-libs/boost-1.56.0:0="
 fi
 
 if [[ ${PN} == "mariadb" || ${PN} == "mariadb-galera" ]] ; then

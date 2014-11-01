@@ -1,6 +1,45 @@
 # ChangeLog for Gentoo/AMD64 profile directory
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/profiles/arch/amd64/ChangeLog,v 1.275 2014/09/13 09:08:30 hwoarang Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/arch/amd64/ChangeLog,v 1.286 2014/10/24 18:37:47 mgorny Exp $
+
+  24 Oct 2014; Michał Górny <mgorny@gentoo.org>
+  no-emul-linux-x86/package.use.stable.mask, package.use.stable.mask:
+  Stable-mask abi_x86_32 on dev-libs/{cloog,isl}, bug #516152. Sort lexically.
+
+  19 Oct 2014; Mike Gilbert <floppym@gentoo.org> use.mask, use.stable.mask:
+  Unmask/stable-mask apparmor.
+
+  18 Oct 2014; Mike Frysinger <vapier@gentoo.org> package.use.mask:
+  Drop systemd-specific seccomp mask since the USE flag itself is handled
+  properly #524148 by Christian Ruppert.
+
+  17 Oct 2014; Michał Górny <mgorny@gentoo.org>
+  no-emul-linux-x86/package.mask:
+  Start masking packages that cause repoman failures due to unmigrated deps.
+
+  14 Oct 2014; Michał Górny <mgorny@gentoo.org> +no-emul-linux-x86/eapi,
+  +no-emul-linux-x86/package.mask, +no-emul-linux-x86/package.use.stable.mask,
+  +no-emul-linux-x86/parent, package.use.stable.mask:
+  Add a no-emul-linux-x86 subprofile for testing emul-linux-x86-free system.
+
+  13 Oct 2014; Tobias Klausmann <klausman@gentoo.org> package.use.stable.mask:
+  Stable-mask abi_x86_32 on dev-lua/luaexpat, bug #520864
+
+  13 Oct 2014; Michał Górny <mgorny@gentoo.org> package.use.stable.mask:
+  Stable-mask abi_x86_32 on dev-lang/lua, bug #520864.
+
+  13 Oct 2014; Michał Górny <mgorny@gentoo.org> package.use.stable.mask:
+  Stable-mask abi_x86_32 on net-dns/avahi, bug #520338.
+
+  13 Oct 2014; Michał Górny <mgorny@gentoo.org> package.use.stable.mask:
+  Stable-mask abi_x86_32 on media-libs/jasper, bug #513812.
+
+  11 Oct 2014; Tim Harder <radhermit@gentoo.org> package.use.mask,
+  package.use.stable.mask:
+  Unmask skype use flag for net-im/bitlbee on unstable systems.
+
+  08 Oct 2014; Ulrich Müller <ulm@gentoo.org> package.use.mask:
+  Unmask apulse, bug 524164.
 
   13 Sep 2014; Markos Chandras <hwoarang@gentoo.org> package.use.mask:
   midori[jit] works on amd64

@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-drivers/nvidia-drivers/nvidia-drivers-343.22-r2.ebuild,v 1.1 2014/09/19 22:09:28 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-drivers/nvidia-drivers/nvidia-drivers-343.22-r2.ebuild,v 1.4 2014/10/19 14:28:58 jer Exp $
 
 EAPI=5
 
@@ -24,7 +24,7 @@ SRC_URI="
 
 LICENSE="GPL-2 NVIDIA-r2"
 SLOT="0"
-KEYWORDS="-* ~amd64 ~x86 ~amd64-fbsd ~x86-fbsd"
+KEYWORDS="-* amd64 x86 ~amd64-fbsd ~x86-fbsd"
 IUSE="acpi multilib kernel_FreeBSD kernel_linux pax_kernel +tools +X uvm"
 RESTRICT="bindist mirror strip"
 EMULTILIB_PKG="true"
@@ -82,11 +82,11 @@ pkg_pretend() {
 		die "Unexpected \${DEFAULT_ABI} = ${DEFAULT_ABI}"
 	fi
 
-	if use kernel_linux && kernel_is ge 3 17 ; then
+	if use kernel_linux && kernel_is ge 3 18 ; then
 		ewarn "Gentoo supports kernels which are supported by NVIDIA"
 		ewarn "which are limited to the following kernels:"
-		ewarn "<sys-kernel/gentoo-sources-3.17"
-		ewarn "<sys-kernel/vanilla-sources-3.17"
+		ewarn "<sys-kernel/gentoo-sources-3.18"
+		ewarn "<sys-kernel/vanilla-sources-3.18"
 		ewarn ""
 		ewarn "You are free to utilize epatch_user to provide whatever"
 		ewarn "support you feel is appropriate, but will not receive"
@@ -172,6 +172,7 @@ src_prepare() {
 		ewarn "use a standard kernel should you have issues. Should you"
 		ewarn "need support with these patches, contact the PaX team."
 		epatch "${FILESDIR}"/${PN}-331.13-pax-usercopy.patch
+		epatch "${FILESDIR}"/${PN}-337.12-pax-constify.patch
 	fi
 
 	# Allow user patches so they can support RC kernels and whatever else

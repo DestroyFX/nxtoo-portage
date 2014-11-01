@@ -1,5 +1,6 @@
 # Copyright owners: Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/eclass/multibuild.eclass,v 1.19 2014/10/31 00:57:49 pesa Exp $
 
 # @ECLASS: multibuild
 # @MAINTAINER:
@@ -238,6 +239,7 @@ run_in_build_dir() {
 	[[ ${#} -ne 0 ]] || die "${FUNCNAME}: no command specified."
 	[[ ${BUILD_DIR} ]] || die "${FUNCNAME}: BUILD_DIR not set."
 
+	mkdir -p "${BUILD_DIR}" || die
 	pushd "${BUILD_DIR}" >/dev/null || die
 	"${@}"
 	ret=${?}

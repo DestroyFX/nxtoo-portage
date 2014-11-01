@@ -1,6 +1,14 @@
 # ChangeLog for app-text/dos2unix
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/app-text/dos2unix/ChangeLog,v 1.148 2014/09/24 19:41:47 maekke Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-text/dos2unix/ChangeLog,v 1.150 2014/10/08 01:19:40 mrueg Exp $
+
+  08 Oct 2014; Manuel Rüger <mrueg@gentoo.org> dos2unix-6.0.6.ebuild:
+  Mark stable on amd64. See bug #522520.
+
+*dos2unix-7.1 (07 Oct 2014)
+
+  07 Oct 2014; Lars Wendler <polynomial-c@gentoo.org> +dos2unix-7.1.ebuild:
+  Version bump.
 
   24 Sep 2014; Markus Meier <maekke@gentoo.org> dos2unix-6.0.6.ebuild:
   arm stable, bug #522520

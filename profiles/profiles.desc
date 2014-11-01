@@ -24,6 +24,7 @@ amd64           default/linux/amd64/13.0/desktop/gnome/systemd  stable
 amd64           default/linux/amd64/13.0/desktop/kde            stable
 amd64           default/linux/amd64/13.0/desktop/kde/systemd    stable
 amd64           default/linux/amd64/13.0/developer              stable
+amd64           default/linux/amd64/13.0/no-emul-linux-x86      dev
 amd64           default/linux/amd64/13.0/no-multilib            dev
 amd64           default/linux/amd64/13.0/x32                    dev
 
@@ -88,16 +89,16 @@ m68k            default/linux/m68k/13.0/desktop/kde             exp
 m68k            default/linux/m68k/13.0/developer               exp
 
 # MIPS Profiles
-mips            default/linux/mips/13.0                         dev
+mips            default/linux/mips/13.0/o32                     dev
 mips            default/linux/mips/13.0/n32                     dev
 mips            default/linux/mips/13.0/n64                     exp
-mips            default/linux/mips/13.0/multilib                dev
+mips            default/linux/mips/13.0/multilib/o32            dev
 mips            default/linux/mips/13.0/multilib/n32            dev
 mips            default/linux/mips/13.0/multilib/n64            exp
-mips            default/linux/mips/13.0/mipsel                  dev
+mips            default/linux/mips/13.0/mipsel/o32              dev
 mips            default/linux/mips/13.0/mipsel/n32              dev
 mips            default/linux/mips/13.0/mipsel/n64              exp
-mips            default/linux/mips/13.0/mipsel/multilib         dev
+mips            default/linux/mips/13.0/mipsel/multilib/o32     dev
 mips            default/linux/mips/13.0/mipsel/multilib/n32     dev
 mips            default/linux/mips/13.0/mipsel/multilib/n64     exp
 
@@ -240,8 +241,6 @@ x86-macos		prefix/darwin/macos/10.7/x86			exp
 x64-macos		prefix/darwin/macos/10.7/x64			exp
 x86-macos		prefix/darwin/macos/10.8/x86			exp
 x64-macos		prefix/darwin/macos/10.8/x64			exp
-x86-macos		prefix/darwin/macos/10.9/x86			exp
-x64-macos		prefix/darwin/macos/10.9/x64			exp
 
 # Solaris Profiles
 sparc-solaris		prefix/sunos/solaris/5.9/sparc			exp

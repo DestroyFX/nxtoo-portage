@@ -1,6 +1,17 @@
 # ChangeLog for dev-ruby/jquery-ui-rails
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/jquery-ui-rails/ChangeLog,v 1.10 2014/07/06 07:52:19 graaff Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/jquery-ui-rails/ChangeLog,v 1.12 2014/10/24 14:54:57 mrueg Exp $
+
+*jquery-ui-rails-5.0.2 (24 Oct 2014)
+
+  24 Oct 2014; Manuel Rüger <mrueg@gentoo.org> +jquery-ui-rails-5.0.2.ebuild:
+  Version bump.
+
+*jquery-ui-rails-5.0.1 (12 Oct 2014)
+
+  12 Oct 2014; Hans de Graaff <graaff@gentoo.org>
+  +jquery-ui-rails-5.0.1.ebuild:
+  Version bump. Update to jQuery UI 1.11.1.
 
 *jquery-ui-rails-5.0.0 (06 Jul 2014)
 

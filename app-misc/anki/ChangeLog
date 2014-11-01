@@ -1,6 +1,20 @@
 # ChangeLog for app-misc/anki
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/app-misc/anki/ChangeLog,v 1.83 2014/08/14 16:50:56 phajdan.jr Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-misc/anki/ChangeLog,v 1.86 2014/10/25 12:41:42 tomka Exp $
+
+*anki-2.0.31 (25 Oct 2014)
+
+  25 Oct 2014; Thomas Kahle <tomka@gentoo.org> +anki-2.0.31.ebuild,
+  -anki-2.0.24.ebuild, -anki-2.0.29.ebuild:
+  bump to 2.0.31
+
+  09 Oct 2014; Agostino Sarubbo <ago@gentoo.org> anki-2.0.28.ebuild:
+  Stable for amd64, wrt bug #518844
+
+*anki-2.0.29 (29 Sep 2014)
+
+  29 Sep 2014; Patrick Lauer <patrick@gentoo.org> +anki-2.0.29.ebuild:
+  Bump
 
   14 Aug 2014; Pawel Hajdan jr <phajdan.jr@gentoo.org> anki-2.0.28.ebuild:
   x86 stable wrt bug #518844

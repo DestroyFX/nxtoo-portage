@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/perl-cleaner/perl-cleaner-9999.ebuild,v 1.3 2014/07/26 20:15:27 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/perl-cleaner/perl-cleaner-9999.ebuild,v 1.6 2014/10/18 19:17:30 vapier Exp $
 
 EAPI=5
 
@@ -10,7 +10,6 @@ HOMEPAGE="http://www.gentoo.org/proj/en/perl/"
 if [[ "${PV}" == "9999" ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="http://github.com/gentoo-perl/perl-cleaner.git"
-	KEYWORDS=""
 else
 	SRC_URI="mirror://gentoo/${P}.tar.bz2 http://dev.gentoo.org/~dilfridge/distfiles/${P}.tar.bz2"
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
@@ -24,7 +23,13 @@ IUSE=""
 
 RDEPEND="app-shells/bash
 	|| ( >=sys-apps/coreutils-8.15 app-misc/realpath sys-freebsd/freebsd-bin )
-	dev-lang/perl"
+	dev-lang/perl
+	|| (
+		( sys-apps/portage app-portage/portage-utils )
+		sys-apps/pkgcore
+		sys-apps/paludis
+	)
+"
 
 src_install() {
 	dosbin perl-cleaner

@@ -1,6 +1,18 @@
 # ChangeLog for media-sound/ncmpcpp
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/media-sound/ncmpcpp/ChangeLog,v 1.86 2014/09/20 09:39:01 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-sound/ncmpcpp/ChangeLog,v 1.88 2014/10/27 19:28:08 jer Exp $
+
+*ncmpcpp-0.6 (27 Oct 2014)
+
+  27 Oct 2014; Jeroen Roovers <jer@gentoo.org> -ncmpcpp-0.6_beta5.ebuild,
+  +ncmpcpp-0.6.ebuild:
+  Version bump.
+
+*ncmpcpp-0.6_beta5 (07 Oct 2014)
+
+  07 Oct 2014; Jeroen Roovers <jer@gentoo.org> -ncmpcpp-0.6_beta4.ebuild,
+  +ncmpcpp-0.6_beta5.ebuild:
+  Version bump.
 
   20 Sep 2014; Jeroen Roovers <jer@gentoo.org> ncmpcpp-0.6_beta4.ebuild:
   No need to run eautomake.

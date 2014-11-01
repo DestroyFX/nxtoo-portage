@@ -1,10 +1,10 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-editors/vim/vim-9999.ebuild,v 1.14 2014/09/06 17:52:52 radhermit Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-editors/vim/vim-9999.ebuild,v 1.17 2014/10/26 17:51:35 radhermit Exp $
 
 EAPI=5
 VIM_VERSION="7.4"
-PYTHON_COMPAT=( python{2_7,3_2,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 PYTHON_REQ_USE=threads
 inherit eutils vim-doc flag-o-matic fdo-mime versionator bash-completion-r1 python-single-r1
 
@@ -167,7 +167,7 @@ src_configure() {
 	# (2) Rebuild auto/configure
 	# (3) Notice auto/configure is newer than auto/config.mk
 	# (4) Run ./configure (with wrong args) to remake auto/config.mk
-	sed -i 's/ auto.config.mk:/:/' src/Makefile || die "Makefile sed failed"
+	sed -i 's# auto/config\.mk:#:#' src/Makefile || die "Makefile sed failed"
 	rm -f src/auto/configure
 	emake -j1 -C src autoconf
 
@@ -333,6 +333,8 @@ src_install() {
 	fi
 
 	newbashcomp "${FILESDIR}"/${PN}-completion ${PN}
+	# keep in sync with 'complete ... -F' list
+	bashcomp_alias vim ex vi view rvim rview vimdiff
 
 	# We shouldn't be installing the ex or view man page symlinks, as they
 	# are managed by eselect-vi

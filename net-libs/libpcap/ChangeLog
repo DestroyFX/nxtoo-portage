@@ -1,6 +1,27 @@
 # ChangeLog for net-libs/libpcap
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/net-libs/libpcap/ChangeLog,v 1.209 2014/09/17 10:14:57 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-libs/libpcap/ChangeLog,v 1.215 2014/10/27 18:03:11 jer Exp $
+
+  27 Oct 2014; Jeroen Roovers <jer@gentoo.org> libpcap-1.6.2-r1.ebuild:
+  DOCS => dodoc (bug #527114 by Nikoli).
+
+  25 Oct 2014; Markus Meier <maekke@gentoo.org> libpcap-1.6.2-r1.ebuild:
+  arm stable, bug #526030
+
+  23 Oct 2014; Pacho Ramos <pacho@gentoo.org> libpcap-1.6.2-r1.ebuild:
+  amd64/x86 stable, bug #526030
+
+  20 Oct 2014; Jeroen Roovers <jer@gentoo.org> libpcap-1.6.2-r1.ebuild:
+  Stable for HPPA (bug #526030).
+
+  07 Oct 2014; Jeroen Roovers <jer@gentoo.org> libpcap-1.6.2.ebuild,
+  libpcap-1.6.2-r1.ebuild, +files/libpcap-1.6.2-dbus.patch:
+  Fix USE=dbus (bug #524602).
+
+*libpcap-1.6.2-r1 (07 Oct 2014)
+
+  07 Oct 2014; Jeroen Roovers <jer@gentoo.org> +libpcap-1.6.2-r1.ebuild:
+  Add multilib support (bug #524604 by Arfrever Frehtes Taifersar Arahesis).
 
   17 Sep 2014; Jeroen Roovers <jer@gentoo.org>
   files/libpcap-1.2.0-cross-linux.patch:

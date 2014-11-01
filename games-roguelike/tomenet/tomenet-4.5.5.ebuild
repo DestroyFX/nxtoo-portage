@@ -1,9 +1,9 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/games-roguelike/tomenet/tomenet-4.5.5.ebuild,v 1.2 2014/05/15 16:56:38 ulm Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-roguelike/tomenet/tomenet-4.5.5.ebuild,v 1.4 2014/10/27 16:19:22 mr_bones_ Exp $
 
 EAPI=5
-inherit eutils gnome2-utils games
+inherit eutils gnome2-utils toolchain-funcs games
 
 DESCRIPTION="A MMORPG based on the works of J.R.R. Tolkien"
 HOMEPAGE="http://www.tomenet.net/"
@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="dedicated server +sound X"
 
-DEPEND="sys-libs/ncurses
+RDEPEND="sys-libs/ncurses
 	!dedicated? (
 		X? (
 			x11-libs/libX11
@@ -24,7 +24,8 @@ DEPEND="sys-libs/ncurses
 			media-libs/sdl-mixer[vorbis,smpeg,mp3]
 		)
 	)"
-RDEPEND="${DEPEND}
+DEPEND="${RDEPEND}
+	virtual/pkgconfig
 	!dedicated? ( sound? ( app-arch/p7zip[wxwidgets] ) )"
 
 S=${WORKDIR}/${P}/src
@@ -42,6 +43,8 @@ src_prepare() {
 			-e "s#@LIBDIR@#${GAMES_DATADIR}/${PN}#" \
 			"${FILESDIR}"/${PN}-server-wrapper > "${T}"/${PN}.server || die
 	fi
+
+	tc-export PKG_CONFIG
 }
 
 src_compile() {

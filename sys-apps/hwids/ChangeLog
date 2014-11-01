@@ -1,6 +1,40 @@
 # ChangeLog for sys-apps/hwids
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sys-apps/hwids/ChangeLog,v 1.145 2014/06/27 18:50:10 flameeyes Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-apps/hwids/ChangeLog,v 1.154 2014/10/19 04:49:06 vapier Exp $
+
+  19 Oct 2014; Mike Frysinger <vapier@gentoo.org> hwids-20141010.ebuild:
+  Mark alpha/ppc64/sparc stable #524976.
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> hwids-20141010.ebuild:
+  Stable for ppc, wrt bug #524976
+
+  16 Oct 2014; Mike Frysinger <vapier@gentoo.org> hwids-20141010.ebuild:
+  Mark arm/arm64/ia64/m68k/s390/sh stable.
+
+  12 Oct 2014; Agostino Sarubbo <ago@gentoo.org> hwids-20141010.ebuild:
+  Stable for x86, wrt bug #524976
+
+  10 Oct 2014; Jeroen Roovers <jer@gentoo.org> hwids-20141010.ebuild:
+  Stable for HPPA (bug #524976).
+
+  10 Oct 2014; Mikle Kolyada <zlogene@gentoo.org> hwids-20141010.ebuild:
+  amd64 stable wrt bug #524976
+
+  10 Oct 2014; Diego E. Pettenò <flameeyes@gentoo.org> -hwids-20140627.ebuild,
+  -hwids-20140927.ebuild:
+  Remove old.
+
+*hwids-20141010 (10 Oct 2014)
+
+  10 Oct 2014; Diego E. Pettenò <flameeyes@gentoo.org> +hwids-20141010.ebuild:
+  Version bump.
+
+*hwids-20140927 (27 Sep 2014)
+
+  27 Sep 2014; Diego E. Pettenò <flameeyes@gentoo.org> +hwids-20140927.ebuild,
+  -hwids-20130915.1.ebuild, -hwids-20140509.ebuild, -hwids-20140602-r1.ebuild,
+  -hwids-20140602.ebuild:
+  Version bump and clean old.
 
 *hwids-20140627 (27 Jun 2014)
 

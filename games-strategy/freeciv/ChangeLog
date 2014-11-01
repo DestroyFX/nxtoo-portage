@@ -1,6 +1,15 @@
 # ChangeLog for games-strategy/freeciv
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/games-strategy/freeciv/ChangeLog,v 1.153 2014/06/04 05:03:42 mr_bones_ Exp $
+# $Header: /var/cvsroot/gentoo-x86/games-strategy/freeciv/ChangeLog,v 1.155 2014/10/27 18:52:41 mr_bones_ Exp $
+
+  27 Oct 2014; Michael Sterrett <mr_bones_@gentoo.org>
+  -files/freeciv-2.4.2-as-needed.patch, -freeciv-2.4.2.ebuild:
+  old
+
+*freeciv-2.4.3 (06 Oct 2014)
+
+  06 Oct 2014; Michael Sterrett <mr_bones_@gentoo.org> +freeciv-2.4.3.ebuild:
+  version bump (bug #524464)
 
   04 Jun 2014; Michael Sterrett <mr_bones_@gentoo.org> freeciv-2.4.2.ebuild:
   remove the qt client as it is not ready to be used (per upstream)

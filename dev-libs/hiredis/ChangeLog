@@ -1,6 +1,30 @@
 # ChangeLog for dev-libs/hiredis
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/hiredis/ChangeLog,v 1.11 2014/08/04 15:18:36 klausman Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/hiredis/ChangeLog,v 1.19 2014/10/18 14:09:36 ago Exp $
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> hiredis-0.11.0-r1.ebuild:
+  Stable for sparc, wrt bug #524154
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> hiredis-0.11.0-r1.ebuild:
+  Stable for ia64, wrt bug #524154
+
+  17 Oct 2014; Agostino Sarubbo <ago@gentoo.org> hiredis-0.11.0-r1.ebuild:
+  Stable for ppc64, wrt bug #524154
+
+  05 Oct 2014; Agostino Sarubbo <ago@gentoo.org> hiredis-0.11.0-r1.ebuild:
+  Stable for ppc, wrt bug #524154
+
+  05 Oct 2014; Agostino Sarubbo <ago@gentoo.org> hiredis-0.11.0-r1.ebuild:
+  Stable for alpha, wrt bug #524154
+
+  01 Oct 2014; Agostino Sarubbo <ago@gentoo.org> hiredis-0.11.0-r1.ebuild:
+  Stable for x86, wrt bug #524154
+
+  01 Oct 2014; Agostino Sarubbo <ago@gentoo.org> hiredis-0.11.0-r1.ebuild:
+  Stable for amd64, wrt bug #524154
+
+  30 Sep 2014; Jeroen Roovers <jer@gentoo.org> hiredis-0.11.0-r1.ebuild:
+  Stable for HPPA (bug #524154).
 
   04 Aug 2014; Tobias Klausmann <klausman@gentoo.org> hiredis-0.11.0-r1.ebuild:
   Keyworded on alpha, bug 489676

@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/mysql-cluster/mysql-cluster-7.2.17.ebuild,v 1.2 2014/08/13 20:53:43 grknight Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-db/mysql-cluster/mysql-cluster-7.2.17.ebuild,v 1.4 2014/10/06 17:37:46 grknight Exp $
 
 EAPI=4
 MY_EXTRAS_VER="none"
@@ -63,7 +63,7 @@ src_test() {
 		export MTR_BUILD_THREAD="$((${RANDOM} % 100))"
 
 		# create directories because mysqladmin might right out of order
-		mkdir -p "${S}"/mysql-test/var-tests{,/log}
+		mkdir -p "${T}"/var-tests{,/log}
 
 		# These are failing in MySQL 5.5 for now and are believed to be
 		# false positives:
@@ -102,7 +102,7 @@ src_test() {
 		pushd "${TESTDIR}"
 
 		# run mysql-test tests
-		perl mysql-test-run.pl --force --vardir="${S}/mysql-test/var-tests" \
+		perl mysql-test-run.pl --force --vardir="${T}/var-tests" \
 			--parallel=auto
 		retstatus_tests=$?
 		[[ $retstatus_tests -eq 0 ]] || eerror "tests failed"

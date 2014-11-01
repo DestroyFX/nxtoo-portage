@@ -1,6 +1,27 @@
 # ChangeLog for app-backup/spideroak-bin
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/app-backup/spideroak-bin/ChangeLog,v 1.46 2014/08/31 15:32:18 blueness Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-backup/spideroak-bin/ChangeLog,v 1.50 2014/10/10 20:56:28 blueness Exp $
+
+  10 Oct 2014; Anthony G. Basile <blueness@gentoo.org>
+  spideroak-bin-5.1.8-r2.ebuild:
+  Stable on amd64 and x86, bug #521728
+
+  01 Oct 2014; Anthony G. Basile <blueness@gentoo.org>
+  -spideroak-bin-5.1.8-r1.ebuild:
+  Remove older version
+
+*spideroak-bin-5.1.8-r2 (30 Sep 2014)
+
+  30 Sep 2014; Anthony G. Basile <blueness@gentoo.org>
+  +spideroak-bin-5.1.8-r2.ebuild:
+  Replace USE=headless with USE=-X, bug #521766
+
+*spideroak-bin-5.1.8-r1 (28 Sep 2014)
+
+  28 Sep 2014; Anthony G. Basile <blueness@gentoo.org>
+  +spideroak-bin-5.1.8-r1.ebuild, -spideroak-bin-5.1.1.ebuild,
+  -spideroak-bin-5.1.3.ebuild, -spideroak-bin-5.1.8.ebuild:
+  Remove older unstable versions, remove USE=headless, bug #521766
 
   31 Aug 2014; Anthony G. Basile <blueness@gentoo.org>
   spideroak-bin-5.1.8.ebuild:
