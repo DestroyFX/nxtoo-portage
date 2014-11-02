@@ -1,10 +1,7 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-<<<<<<< HEAD
 # $Header: /var/cvsroot/gentoo-x86/eclass/vala.eclass,v 1.7 2013/10/04 22:11:54 tetromino Exp $
-=======
 # $Header: /var/cvsroot/gentoo-x86/eclass/vala.eclass,v 1.9 2014/10/30 13:21:25 pacho Exp $
->>>>>>> gentoo-portage/master
 
 # @ECLASS: vala.eclass
 # @MAINTAINER:
