@@ -223,7 +223,7 @@ pkg_postinst() {
 	set_gtk2_confdir
 
 	multilib_pkg_postinst() {
-		"${CHOST}"-gtk-query-immodules-2.0 --update-cache \
+		        gtk-query-immodules-2.0 --update-cache \
 			|| die "Update immodules cache failed (for ${ABI})"
 	}
 	multilib_parallel_foreach_abi multilib_pkg_postinst
