@@ -18,6 +18,10 @@
 
 #--- END OF EXAMPLES ---
 
+# Simon-Pierre Dubé <shaedge@gmail.com> (03 Nov 2014)
+# Not compiling cups modules properly
+=x11-libs/gtk+-2.24.24 cups
+
 # Tim Harder <radhermit@gentoo.org> (11 Oct 2014)
 # Unmask skype support for unstable keywords
 net-im/bitlbee -skype
