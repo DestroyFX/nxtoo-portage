@@ -5,10 +5,6 @@
 # Needs testing.
 sys-devel/gcc gcj graphite regression-test
 
-# Simon-Pierre Dubé <shaedge@gmail.com> (03 Nov 2014)
-# Not compiling cups modules properly
-=x11-libs/gtk+-2.24.24 cups
-
 # Rick Farina <zerochaos@gentoo.org> (09 Jan 2014)
 # rjb doesn't work on arm, so no java hacks for metasploit
 net-analyzer/metasploit java
