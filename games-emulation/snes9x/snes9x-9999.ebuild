@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/games-emulation/snes9x/snes9x-1.53.ebuild,v 1.6 2012/02/02 16:05:59 ssuominen Exp $
 
@@ -95,7 +95,7 @@ src_compile() {
 src_install() {
 #	dogamesbin ${PN} || die
 
-	dohtml {.,..}/docs/*.html
+	dohtml {.,.}/docs/*.html
 	dodoc ./docs/{snes9x.conf.default,{changes,control-inputs,controls,snapshots}.txt}
 
 	if use gtk; then
